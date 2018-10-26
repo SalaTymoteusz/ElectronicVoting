@@ -1,2 +1,2 @@
 # ElectronicVoting
-N-tier application on ASP.NET MVC
+React + Redux - User Registration and Login application that uses JWT authentication
