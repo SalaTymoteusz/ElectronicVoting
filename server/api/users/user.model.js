@@ -10,7 +10,7 @@ const UserSchema = new Schema({
         required: true,
         validate: {
             validator: (v) => {
-                return  v.length>3;
+                return v.length > 3;
             },
             message: p => `${p.value} is not valid`
         }
@@ -20,7 +20,7 @@ const UserSchema = new Schema({
         required: true,
         validate: {
             validator: (v) => {
-                return  v.length>3;
+                return v.length > 3;
             },
             message: p => `${p.value} is not valid`
         }
@@ -30,7 +30,7 @@ const UserSchema = new Schema({
         required: true,
         validate: {
             validator: (v) => {
-                return /([0-9]{11})/g.test(v) && v.length==11;
+                return /([0-9]{11})/g.test(v) && v.length == 11;
             },
             message: p => `${p.value} is not valid`
         }
@@ -46,24 +46,46 @@ const UserSchema = new Schema({
         type: Number,
         required: true,
     },
-    group: {
+    permissions: {
         type: String,
-        enum:['ADMIN','USER'],
-        default: 'USER'
-    },
-    permissions:{
-        type:String,
-        default:0,
+        default: 0,
     },
     password: {
         type: String,
         required: true,
-        select: false,
     },
     salt: {
         type: String,
-        select: false,
     }
+}, {
+    toJSON: {
+        virtuals: true,
+        transform: function (doc, ret) {
+            ret = ret.public;
+            return ret;
+        }
+    }
+});
+//virtuals
+UserSchema.virtual('public').get(function () {
+    return {
+        _id: this._id,
+        name: this.name,
+        surname: this.surname,
+        pesel: this.pesel,
+        desc: this.desc,
+        age: this.age,
+    };
+});
+UserSchema.virtual('profile').get(function () {
+    return {
+        _id: this._id,
+        name: this.name,
+        surname: this.surname,
+        pesel: this.pesel,
+        desc: this.desc,
+        age: this.age,
+    };
 });
 /**
  * Validations
@@ -154,6 +176,7 @@ UserSchema.methods = {
 
         const _this = this;
         this.encryptPassword(password, function (err, pwdGen) {
+
             if (err) {
                 callback(err);
             }
@@ -216,4 +239,4 @@ UserSchema.methods = {
     }
 };
 
-module.exports = mongoose.model('User', UserSchema, 'User');
+module.exports = mongoose.model('Users', UserSchema, 'Users');

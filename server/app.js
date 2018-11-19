@@ -5,8 +5,8 @@ const express = require('express');
 
 //express configuration
 const app = express();
-const config=require("./config");
-const routes= require("./api");
+const config = require("./config");
+const routes = require("./api");
 
 //initialize config
 config(app);

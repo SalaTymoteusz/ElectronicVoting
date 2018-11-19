@@ -13,6 +13,7 @@ const controller = require('./user.controller');
 
 router.get('/', controller.index);
 router.post('/', controller.create);
+router.post('/login', controller.login);
 router.get('/:id', controller.show);
 router.delete('/:id', controller.destroy);
 

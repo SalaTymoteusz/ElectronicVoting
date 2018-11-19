@@ -1,15 +1,16 @@
 const debug = require('debug')('mongo:controllers');
-const User = require('../../api/users/user.model');
-//var passport = require('passport');
+const User = require('./user.model');
+const passport = require("passport")
+const config = require("../../config").config;
 const jsign = require('jsonwebtoken/sign');
 
-const error=require("../../helpers/errors");
+const error = require("../../helpers/errors");
 
 exports.index = async (req, res) => {
   try {
-
     //search for users
     const data = await User.find()
+    data.map(x => x.profile);
     res.sendData(data);
   } catch (err) {
     debug(err);
@@ -17,11 +18,14 @@ exports.index = async (req, res) => {
   }
 };
 
-
 exports.create = async (req, res) => {
   try {
     //remove role if somebody want to add
-    const{group,permissions, ...userData}=req.body;
+    const {
+      group,
+      permissions,
+      ...userData
+    } = req.body;
     // validate data with user model
     const newUser = new User(userData);
 
@@ -36,12 +40,7 @@ exports.create = async (req, res) => {
     });
     //response with simple user Data and token
     res.sendData({
-      user: {
-        id: user._id,
-        pesel: user.pesel,
-        role: user.role,
-  
-      },
+      user: user.profile,
       token: token
     })
   } catch (err) {
@@ -64,8 +63,8 @@ exports.show = async (req, res) => {
 
 exports.destroy = async (req, res) => {
   try {
-     //search for specific User
-     const user = await User.findById(req.params.id);
+    //search for specific User
+    const user = await User.findById(req.params.id);
     if (!user) throw new error.response(404, "Not Found");
     //remove him if exist
     await user.remove()
@@ -75,3 +74,27 @@ exports.destroy = async (req, res) => {
     res.sendData(new error.response(500, err.message))
   }
 };
+exports.login = async (req, res, next) => {
+  passport.authenticate('local', function (err, user, info) {
+    var error = err || info;
+    if (error) {
+      return res.status(401).json(error);
+    }
+    if (!user) {
+      return res
+        .status(404)
+        .json({
+          message: 'Something went wrong, please try again.'
+        });
+    }
+    var token = jsign({
+      _id: user._id
+    }, config.passport.secret, {
+      expiresIn: 60 * 5 * 60
+    });
+    res.json({
+      user: user.profile,
+      token: token
+    });
+  })(req, res, next);
+}
