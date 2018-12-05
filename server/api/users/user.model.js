@@ -10,7 +10,7 @@ const UserSchema = new Schema({
         required: true,
         validate: {
             validator: (v) => {
-                return v.length > 3;
+                return v.length > 2;
             },
             message: p => `${p.value} is not valid`
         }
@@ -20,7 +20,7 @@ const UserSchema = new Schema({
         required: true,
         validate: {
             validator: (v) => {
-                return v.length > 3;
+                return v.length > 2;
             },
             message: p => `${p.value} is not valid`
         }
