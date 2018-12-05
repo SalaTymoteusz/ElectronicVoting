@@ -5,7 +5,8 @@
   "scripts": {
     "start": "node ./bin/www",
     "dev": " nodemon ./bin/www",
-    "debug:all": "set DEBUG=* && nodemon ./bin/www"
+    "debug:all": "set DEBUG=* && nodemon ./bin/www",
+    "populate:users": "node ./populate.js"
   },
   "dependencies": {
     "bcryptjs": "2.4.3",
