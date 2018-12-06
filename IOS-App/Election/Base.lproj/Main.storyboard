@@ -148,8 +148,8 @@
                                     <action selector="cancelButtonTapped:" destination="4U7-kT-YqK" eventType="touchUpInside" id="pBW-V1-oRF"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5QU-ep-HnT">
-                                <rect key="frame" x="197" y="201" width="107" height="30"/>
+                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5QU-ep-HnT">
+                                <rect key="frame" x="186" y="200" width="107" height="30"/>
                                 <color key="backgroundColor" red="0.0" green="0.56031829119999998" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <color key="tintColor" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <state key="normal" title="Sign up"/>
@@ -157,6 +157,20 @@
                                     <action selector="signUpButtonTapped:" destination="4U7-kT-YqK" eventType="touchUpInside" id="thX-kP-bbx"/>
                                 </connections>
                             </button>
+                            <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Age" textAlignment="natural" minimumFontSize="17" clearButtonMode="always" translatesAutoresizingMaskIntoConstraints="NO" id="lM7-2w-QqU">
+                                <rect key="frame" x="16" y="238" width="288" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <nil key="textColor"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                            <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Pesel" textAlignment="natural" minimumFontSize="17" clearButtonMode="always" translatesAutoresizingMaskIntoConstraints="NO" id="365-5J-W8c">
+                                <rect key="frame" x="16" y="276" width="288" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <nil key="textColor"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
@@ -179,18 +193,20 @@
                             <constraint firstItem="Guf-YK-dQJ" firstAttribute="leading" secondItem="dQY-vQ-rA4" secondAttribute="leading" id="m5v-hh-Q86"/>
                             <constraint firstItem="dQY-vQ-rA4" firstAttribute="baseline" secondItem="5QU-ep-HnT" secondAttribute="baseline" id="nSe-er-BB2"/>
                             <constraint firstItem="Be1-xq-oBX" firstAttribute="leading" secondItem="YnP-Qm-mHL" secondAttribute="leading" id="uIa-Kc-x6m"/>
-                            <constraint firstItem="xOq-18-61o" firstAttribute="leading" secondItem="5QU-ep-HnT" secondAttribute="leading" id="uvk-Xp-h27"/>
+                            <constraint firstItem="xOq-18-61o" firstAttribute="leading" secondItem="5QU-ep-HnT" secondAttribute="leading" constant="11" id="uvk-Xp-h27"/>
                             <constraint firstItem="bXB-tb-iEg" firstAttribute="trailing" secondItem="HQq-T6-eA3" secondAttribute="trailingMargin" id="vop-ic-BKX"/>
                             <constraint firstItem="YnP-Qm-mHL" firstAttribute="leading" secondItem="ZfX-Tn-H5T" secondAttribute="leading" id="whu-YX-VtR"/>
-                            <constraint firstItem="Guf-YK-dQJ" firstAttribute="trailing" secondItem="5QU-ep-HnT" secondAttribute="trailing" id="yc7-U4-mhd"/>
+                            <constraint firstItem="Guf-YK-dQJ" firstAttribute="trailing" secondItem="5QU-ep-HnT" secondAttribute="trailing" constant="11" id="yc7-U4-mhd"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="DY9-TE-Lge"/>
                     </view>
                     <connections>
+                        <outlet property="ageTextField" destination="lM7-2w-QqU" id="Ntf-Xc-Uwn"/>
                         <outlet property="emailAddressTextField" destination="YnP-Qm-mHL" id="088-Ob-N4x"/>
                         <outlet property="firstNameTextField" destination="Be1-xq-oBX" id="EMb-qY-13b"/>
                         <outlet property="lastNameTextField" destination="xOq-18-61o" id="ncv-Kf-gH8"/>
                         <outlet property="passwordTextField" destination="ZfX-Tn-H5T" id="vXx-BE-IJq"/>
+                        <outlet property="peselTextField" destination="365-5J-W8c" id="FVN-k4-gEv"/>
                         <outlet property="repeatPasswordTextField" destination="Guf-YK-dQJ" id="EYc-md-5Hs"/>
                     </connections>
                 </viewController>
