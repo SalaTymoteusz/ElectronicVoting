@@ -46,6 +46,14 @@ const UserSchema = new Schema({
         type: Number,
         required: true,
     },
+    votes:{
+        type: Number,
+        default:0,
+    },
+    gaveVote:{
+        type:Boolean,
+        default:false,
+    },
     permissions: {
         type: String,
         default: 0,

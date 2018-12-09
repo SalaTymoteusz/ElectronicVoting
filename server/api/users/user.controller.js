@@ -24,6 +24,8 @@ exports.create = async (req, res) => {
     const {
       group,
       permissions,
+      votes,
+      gaveVote,
       ...userData
     } = req.body;
     // validate data with user model
