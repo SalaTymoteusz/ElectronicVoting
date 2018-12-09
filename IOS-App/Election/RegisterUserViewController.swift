@@ -7,6 +7,8 @@ class RegisterUserViewController: UIViewController {
     @IBOutlet weak var emailAddressTextField: UITextField!
     @IBOutlet weak var passwordTextField: UITextField!
     @IBOutlet weak var repeatPasswordTextField: UITextField!
+    @IBOutlet weak var ageTextField: UITextField!
+    @IBOutlet weak var peselTextField: UITextField!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -32,7 +34,9 @@ class RegisterUserViewController: UIViewController {
             (lastNameTextField.text?.isEmpty)! ||
             (emailAddressTextField.text?.isEmpty)! ||
             (passwordTextField.text?.isEmpty)! ||
-            (repeatPasswordTextField.text?.isEmpty)!
+            (repeatPasswordTextField.text?.isEmpty)! ||
+            (ageTextField.text?.isEmpty)! ||
+            (peselTextField.text?.isEmpty)!
         {
             // Display alert message and return
             displayMessage(userMessage: "All fields are required to fill in")
@@ -63,6 +67,81 @@ class RegisterUserViewController: UIViewController {
         //myActivityIndicator.stopAnimating()
         
         view.addSubview(myActivityIndicator)
+        
+        
+        // Send HTTP Request to Register user
+        let myUrl = URL(string: "http://localhost:3000/users")
+        var request = URLRequest(url:myUrl!)
+        request.httpMethod = "POST" // Compose a query string
+        request.addValue("application/json", forHTTPHeaderField: "content-type")
+        request.addValue("application/json", forHTTPHeaderField: "Accept")
+        
+        let postString = ["name": firstNameTextField.text!,
+                          "surname": lastNameTextField.text!,
+                          "IDCardNumber": emailAddressTextField.text!,
+                          "password": passwordTextField.text!,
+                          "age": ageTextField.text!,
+                          "pesel": peselTextField.text!
+                          ] as [String: String]
+        
+        do {
+            request.httpBody = try JSONSerialization.data(withJSONObject: postString, options: .prettyPrinted)
+        } catch let error {
+            print(error.localizedDescription)
+            displayMessage(userMessage: "Something went wrong. Try again")
+            return
+        }
+        
+        let task = URLSession.shared.dataTask(with: request) {(data: Data?, response: URLResponse?, error: Error?) in
+            self.removeActivityIndicator(activityIndicator: myActivityIndicator)
+            
+            if error != nil
+            {
+                self.displayMessage(userMessage: "Could not successfully perform this request. Please try again later")
+                print("error=\(String(describing: error))")
+                return
+            }
+            //Let's convert response sent from a server side code to a NSDictionary object:
+            do {
+                let json = try JSONSerialization.jsonObject(with: data!, options: .mutableContainers) as? NSDictionary
+                
+                if let parseJSON = json {
+                    
+                    let userId = parseJSON["token"] as? String
+                    print("User id: \(String(describing: userId!))")
+                    
+                    if (userId?.isEmpty)!
+                    {
+                        //Display an Alert dialog with a friendly error message
+                        self.displayMessage(userMessage: "Could not successfully perform this request. Please try again later")
+                        return
+                    } else {
+                        self.displayMessage(userMessage: "Successfully Registered a New Account. Please proceed to Sign in")
+                    }
+                } else {
+                    //Display an Alert dialog with a friendly error message
+                    self.displayMessage(userMessage: "Could not successfully perform this request. Please try again later")
+                }
+            } catch {
+                
+                self.removeActivityIndicator(activityIndicator: myActivityIndicator)
+                
+                // Display an Alert dialog with a friendly error message
+                self.displayMessage(userMessage: "Could not successfully perform this request. Please try again later")
+                print(error)
+            }
+        }
+        
+            task.resume()
+        }
+        
+        
+        func removeActivityIndicator(activityIndicator: UIActivityIndicatorView)
+          {
+            DispatchQueue.main.async {
+                activityIndicator.stopAnimating()
+                activityIndicator.removeFromSuperview()
+            }
     }
     
     
