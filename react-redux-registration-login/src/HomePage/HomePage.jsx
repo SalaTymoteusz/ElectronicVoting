@@ -33,6 +33,9 @@ class HomePage extends React.Component {
                                    ＼＿)
                     </pre>
                 <p>You're logged in with React!!! :)</p>
+                <img src="https://i.pinimg.com/originals/e8/57/a8/e857a8a9535fa7ceb5a749cc55bf4e78.png" alt="Girl in a jacket" width="200" height="300"/> 
+                <img src="https://data1.cupsell.pl/upload/generator/15375/640x420/236093_print-trimmed-2.png" alt="Girl in a jacket" width="200" height="200"/>
+                <img src="https://s.tcdn.co/e42/290/e4229014-8f04-3acb-b09c-1a3dafc9d1ef/5.png" alt="Girl in a jacket" width="200" height="200"/> 
                 <h3>Wszyscy zarejestrowani użytkownicy:</h3>
                 {users.loading && <em>Loading users...</em>}
                 {users.error && <span className="text-danger">ERROR: {users.error}</span>}
