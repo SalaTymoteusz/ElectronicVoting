@@ -18,6 +18,20 @@ class HomePage extends React.Component {
         return (
             <div className="col-md-6 col-md-offset-3">
                 <h1>Cześć {user.firstName}!</h1>
+                    <pre>
+                              ∩＿＿＿∩ <br/> 
+                             |ノ      ヽ<br/> 
+                            /   ●    ● | クマ──！！<br/> 
+                           |     (_●_) ミ<br/> 
+                          彡､     |∪|  ､｀＼<br/> 
+                        / ＿＿    ヽノ /´>   )<br/> 
+                        (＿＿＿）     /  (_／<br/> 
+                          |        /<br/> 
+                          |   ／＼  ＼<br/> 
+                          | /     )   )<br/> 
+                           ∪     （   ＼<br/> 
+                                   ＼＿)
+                    </pre>
                 <p>You're logged in with React!!! :)</p>
                 <h3>Wszyscy zarejestrowani użytkownicy:</h3>
                 {users.loading && <em>Loading users...</em>}
