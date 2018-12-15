@@ -8,6 +8,7 @@
 
 import UIKit
 
+
 class HomePageViewController: UIViewController {
     
     @IBOutlet weak var tableView: UITableView!
@@ -27,14 +28,14 @@ class HomePageViewController: UIViewController {
         
         var tempCandidates: [Candidate] = []
         
-        let candidate1 = Candidate(image: #imageLiteral(resourceName: "kukiz"), title: "Vote for Kukiz")
-        let candidate2 = Candidate(image: #imageLiteral(resourceName: "pisGrzegorzMuszynski"), title: "Vote for Mielca")
-        let candidate3 = Candidate(image: #imageLiteral(resourceName: "pisAnnaCicholska"), title: "Vote for Cicholska")
-        let candidate4 = Candidate(image: #imageLiteral(resourceName: "poRafalTrzaskowski"), title: "Vote for Trzaskowski")
-        let candidate5 = Candidate(image: #imageLiteral(resourceName: "poTusk"), title: "Vote for Tusk")
-        let candidate6 = Candidate(image: #imageLiteral(resourceName: "pisGrzegorzMuszynski"), title: "Vote for Muszynski")
-        let candidate7 = Candidate(image: #imageLiteral(resourceName: "pisMarcinKozuchowski"), title: "Vote for Kozuchowski")
-
+        let candidate1 = Candidate(image: #imageLiteral(resourceName: "donald"), title: "Vote for Kukiz", votes: "124", percent: "40")
+        let candidate2 = Candidate(image: #imageLiteral(resourceName: "german"), title: "Vote for Mielca", votes: "43", percent: "25")
+        let candidate3 = Candidate(image: #imageLiteral(resourceName: "mask"), title: "Vote for Cicholska", votes: "24", percent: "15")
+        let candidate4 = Candidate(image: #imageLiteral(resourceName: "wanda"), title: "Vote for Trzaskowski", votes: "15", percent: "10")
+        let candidate5 = Candidate(image: #imageLiteral(resourceName: "donald"), title: "Vote for Tusk", votes: "4", percent: "1")
+        let candidate6 = Candidate(image: #imageLiteral(resourceName: "ben"), title: "Vote for Muszynski", votes: "12", percent: "2")
+        let candidate7 = Candidate(image: #imageLiteral(resourceName: "dog375x275"), title: "Vote for Kozuchowski", votes: "531", percent: "80")
+        
 
         
         tempCandidates.append(candidate1)
