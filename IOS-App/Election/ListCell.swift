@@ -20,8 +20,8 @@ class ListCell: UITableViewCell {
         
         listImageView.image = candidate.image
         listTitleLabel.text = candidate.title
-        listPercentLabel.text = candidate.percent
-        listVotesLabel.text = candidate.votes
+        listPercentLabel.text = String(candidate.percent)
+        listVotesLabel.text = String(candidate.votes)
         
         listImageView.layer.cornerRadius = listImageView.frame.size.width / 2
         listImageView.clipsToBounds = true

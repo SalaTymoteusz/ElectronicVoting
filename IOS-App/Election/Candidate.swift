@@ -14,10 +14,10 @@ class Candidate {
     
     var image: UIImage
     var title: String
-    var votes: String
-    var percent: String
+    var votes: Int
+    var percent: Int
         
-    init(image: UIImage, title: String, votes: String, percent: String) {
+    init(image: UIImage, title: String, votes: Int, percent: Int) {
         self.image = image
         self.title = title
         self.votes = votes

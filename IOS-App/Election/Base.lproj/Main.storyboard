@@ -256,7 +256,7 @@
                                 </items>
                             </navigationBar>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="Kqm-nH-Czs">
-                                <rect key="frame" x="0.0" y="64" width="375" height="603"/>
+                                <rect key="frame" x="0.0" y="108" width="375" height="559"/>
                                 <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="ListCell" rowHeight="225" id="AW4-LS-vhu" customClass="ListCell" customModule="Election" customModuleProvider="target">
@@ -330,6 +330,14 @@
                                     </tableViewCell>
                                 </prototypes>
                             </tableView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CJ8-tI-p9T">
+                                <rect key="frame" x="0.0" y="64" width="375" height="44"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                                <fontDescription key="fontDescription" name="Arial-BoldMT" family="Arial" pointSize="25"/>
+                                <color key="textColor" red="0.26051741839999998" green="0.2605243921" blue="0.260520637" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <color key="highlightedColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                         <constraints>
@@ -338,12 +346,13 @@
                             <constraint firstAttribute="trailing" secondItem="g7y-Wc-R9z" secondAttribute="trailing" id="aqA-8g-Ejx"/>
                             <constraint firstItem="9gU-HX-BsL" firstAttribute="trailing" secondItem="Kqm-nH-Czs" secondAttribute="trailing" id="fBP-2S-fro"/>
                             <constraint firstItem="g7y-Wc-R9z" firstAttribute="top" secondItem="9gU-HX-BsL" secondAttribute="top" id="i7K-Hf-miI"/>
-                            <constraint firstItem="Kqm-nH-Czs" firstAttribute="top" secondItem="g7y-Wc-R9z" secondAttribute="bottom" id="qV2-9B-Qaq"/>
+                            <constraint firstItem="Kqm-nH-Czs" firstAttribute="top" secondItem="g7y-Wc-R9z" secondAttribute="bottom" constant="44" id="qV2-9B-Qaq"/>
                             <constraint firstAttribute="bottom" secondItem="Kqm-nH-Czs" secondAttribute="bottom" id="sJV-6I-08O"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="9gU-HX-BsL"/>
                     </view>
                     <connections>
+                        <outlet property="dateLabelOutlet" destination="CJ8-tI-p9T" id="eFM-Xu-ear"/>
                         <outlet property="tableView" destination="Kqm-nH-Czs" id="hdR-87-hXH"/>
                     </connections>
                 </viewController>
