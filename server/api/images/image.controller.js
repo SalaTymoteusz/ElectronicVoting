@@ -3,21 +3,7 @@ const User = require("../users/user.model");
 const upload=require("../../config/multer")
 const debug = require('debug')('api:controllers');
 const fs=require("fs")
-async function sendImageToServer(file){
-    // if file dont exist throw error
-    if(file == undefined){
-        throw new Error("attach File")
-    }else{
-        // create new image
-        let newImage= new Image();
-        //set user 
-        // newImage.userID=req.params.id;
-        newImage.image.data=fs.readFileSync(file.path);
-        newImage.image.contentType=file.mimetype;
-        return newImage.save();
-    }
- // save image to database 
-}
+
 function removeFile(file){
     //remove file from disc
     fs.unlinkSync(file.path)
@@ -38,7 +24,22 @@ exports.createAvatar=async (req,res)=>{
                 if(!user){
                     throw new Error("user not Found")
                 }
-                    let img = await sendImageToServer(req.file);
+                 // if file dont exist throw error
+                if(req.file == undefined){
+                    throw new Error("attach File")
+                }else{
+                    // delete if user do have avatar previous
+                    if(user.avatar){
+                      await Image.findByIdAndDelete(user.avatar);
+                    }
+                    // create new image
+                    let newImage= new Image();
+                    //set user 
+                    // newImage.userID=req.params.id
+                    newImage.resource="AVATAR";
+                    newImage.image.data=fs.readFileSync(req.file.path);
+                    newImage.image.contentType=req.file.mimetype;
+                    let img = await newImage.save();
                     
                     //update user
                     await User.updateOne({_id:user._id},{avatar:img._id});
@@ -46,9 +47,11 @@ exports.createAvatar=async (req,res)=>{
                     // TODO: SuccessResponse
                     res.send({success:true})
                 }
+            }
         }
         catch(e){
             debug(e)
+            console.log(e);
             // TODO: ErrorResponse
             res.send({success:false,error:e.message})
         }
