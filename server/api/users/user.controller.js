@@ -1,12 +1,12 @@
-const debug = require('debug')('mongo:controllers');
 const User = require('./user.model');
+const debug = require('debug')('api:controllers');
 const passport = require("passport")
 const config = require("../../config").config;
 const jsign = require('jsonwebtoken/sign');
-
 const error = require("../../helpers/errors");
 
 exports.index = async (req, res) => {
+  //TODO: user Authentication
   try {
     //search for users
     const data = await User.find()
@@ -51,11 +51,13 @@ exports.create = async (req, res) => {
   }
 };
 exports.show = async (req, res) => {
+  //TODO: user Authentication
   try {
     //search for specific User
     const user = await User.findById(req.params.id);
     if (!user)
       throw new error.response(404, "Not Found");
+//TODO: user send
   } catch (err) {
     debug(err);
     res.sendData(new error.response(500, err.message))
@@ -64,6 +66,7 @@ exports.show = async (req, res) => {
 //TODO: Update
 
 exports.destroy = async (req, res) => {
+  //TODO: user Authentication
   try {
     //search for specific User
     const user = await User.findById(req.params.id);
@@ -100,3 +103,7 @@ exports.login = async (req, res, next) => {
     });
   })(req, res, next);
 }
+
+
+
+

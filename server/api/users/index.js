@@ -10,6 +10,7 @@
 const router = require('express/lib/router')();
 const controller = require('./user.controller');
 
+// const multer = require('../../config/multer');
 
 router.get('/', controller.index);
 router.post('/', controller.create);

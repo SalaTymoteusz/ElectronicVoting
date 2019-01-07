@@ -25,6 +25,9 @@ const UserSchema = new Schema({
             message: p => `${p.value} is not valid`
         }
     },
+    avatar:{
+        type:mongoose.Types.ObjectId
+    },
     pesel: {
         type: String,
         required: true,
