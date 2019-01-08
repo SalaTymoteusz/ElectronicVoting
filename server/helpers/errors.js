@@ -6,6 +6,4 @@ class ResponseError extends Error {
       this.error = message;
     }
   }
-  module.exports={
-      response:ResponseError
-  }
+  module.exports=ResponseError;

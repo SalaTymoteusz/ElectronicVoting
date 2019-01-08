@@ -86,6 +86,7 @@ UserSchema.virtual('public').get(function () {
         pesel: this.pesel,
         desc: this.desc,
         age: this.age,
+        avatar:this.avatar
     };
 });
 UserSchema.virtual('profile').get(function () {
@@ -96,6 +97,7 @@ UserSchema.virtual('profile').get(function () {
         pesel: this.pesel,
         desc: this.desc,
         age: this.age,
+        avatar:this.avatar
     };
 });
 /**

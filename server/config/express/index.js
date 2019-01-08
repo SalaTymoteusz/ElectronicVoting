@@ -16,12 +16,13 @@ module.exports = (app)=> {
   app.use(bodyParser.urlencoded({ extended: false }));
   app.use(bodyParser.json());
  
-  app.use('/', express.static(__dirname + '/public')); 
+  app.use(express.static('public')); 
   //set cors
   app.use(cors());
 
   //use Send data
   app.use(sendData);
+ 
 
   //set config path for public
   app.set('appPath', config.root);

@@ -1,20 +1,22 @@
 const User = require('./user.model');
+const Image = require("../images/image.model");
 const debug = require('debug')('api:controllers');
 const passport = require("passport")
 const config = require("../../config").config;
 const jsign = require('jsonwebtoken/sign');
-const error = require("../../helpers/errors");
+const ResponseWithError = require("../../helpers/errors");
 
 exports.index = async (req, res) => {
+  console.log(req.user)
   //TODO: user Authentication
   try {
     //search for users
     const data = await User.find()
     data.map(x => x.profile);
-    res.sendData(data);
+    res.sendSuccess(data);
   } catch (err) {
     debug(err);
-    res.sendData(new error.response(500, err.message))
+    res.sendError(err)
   }
 };
 
@@ -37,17 +39,19 @@ exports.create = async (req, res) => {
     const token = jsign({
       _id: user._id
       //TODO: Change Secret
-    }, "ala ma kota", {
-      expiresIn: 60 * 5 * 60
-    });
+    },
+      "ala ma kota",
+      {
+        expiresIn: 60 * 5 * 60
+      });
     //response with simple user Data and token
-    res.sendData({
+    res.sendSuccess({
       user: user.profile,
       token: token
-    })
+    }, 201)
   } catch (err) {
     debug(err);
-    res.sendData(new error.response(500, err.message))
+    res.sendError(err)
   }
 };
 exports.show = async (req, res) => {
@@ -56,11 +60,12 @@ exports.show = async (req, res) => {
     //search for specific User
     const user = await User.findById(req.params.id);
     if (!user)
-      throw new error.response(404, "Not Found");
-//TODO: user send
+      throw new ResponseWithError(404, "Not Found");
+    res.sendSuccess(user);
+    //TODO: user send
   } catch (err) {
     debug(err);
-    res.sendData(new error.response(500, err.message))
+    res.sendError(err)
   }
 };
 //TODO: Update
@@ -70,38 +75,43 @@ exports.destroy = async (req, res) => {
   try {
     //search for specific User
     const user = await User.findById(req.params.id);
-    if (!user) throw new error.response(404, "Not Found");
+    if (!user) throw new ResponseWithError(404, "Not Found");
     //remove him if exist
-    await user.remove()
-    res.sendData("removed");
+    if (user.avatar) {
+      await Image.findByIdAndDelete(user.avatar);
+    }
+    await user.remove();
+    res.sendSuccess({ removed: user });
   } catch (err) {
     debug(err);
-    res.sendData(new error.response(500, err.message))
+    res.sendError(err)
   }
 };
 exports.login = async (req, res, next) => {
-  passport.authenticate('local', function (err, user, info) {
-    var error = err || info;
-    if (error) {
-      return res.status(401).json(error);
-    }
-    if (!user) {
-      return res
-        .status(404)
-        .json({
-          message: 'Something went wrong, please try again.'
+  try {
+    passport.authenticate('local', function (err, user, info) {
+      var error = err || info;
+      if (error) {
+        return new ResponseWithError(401, error)
+      }
+      if (!user) {
+        throw new ResponseWithError(404, "Not Found")
+      }
+      var token = jsign({
+        _id: user._id
+      }, config.passport.secret, {
+          expiresIn: 60 * 5 * 60
         });
-    }
-    var token = jsign({
-      _id: user._id
-    }, config.passport.secret, {
-      expiresIn: 60 * 5 * 60
-    });
-    res.json({
-      user: user.profile,
-      token: token
-    });
-  })(req, res, next);
+      res.sendSuccess({
+        user: user.profile,
+        token: token
+      });
+    })(req, res, next);
+  }
+  catch (e) {
+    debug(err);
+    res.sendError(err)
+  }
 }
 
 
