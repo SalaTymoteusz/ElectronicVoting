@@ -19,7 +19,7 @@ class Candidate {
     var age: Int
     var myStory: String
     
-        
+
     init(image: UIImage, name: String, lastName: String, votes: Int, age: Int, myStory: String) {
         self.image = image
         self.name = name
