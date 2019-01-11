@@ -25,6 +25,9 @@ const UserSchema = new Schema({
             message: p => `${p.value} is not valid`
         }
     },
+    avatar:{
+        type:mongoose.Types.ObjectId
+    },
     pesel: {
         type: String,
         required: true,
@@ -83,6 +86,7 @@ UserSchema.virtual('public').get(function () {
         pesel: this.pesel,
         desc: this.desc,
         age: this.age,
+        avatar:this.avatar
     };
 });
 UserSchema.virtual('profile').get(function () {
@@ -93,6 +97,7 @@ UserSchema.virtual('profile').get(function () {
         pesel: this.pesel,
         desc: this.desc,
         age: this.age,
+        avatar:this.avatar
     };
 });
 /**

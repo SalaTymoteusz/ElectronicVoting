@@ -17,7 +17,7 @@ class HomePage extends React.Component {
         const { user, users } = this.props;
         return (
             <div className="col-md-6 col-md-offset-3">
-                <h1>Cześć {user.firstName}!</h1>
+                <h1>Cześć {user.firstName}! My name is PEdo Bear</h1>
                     <pre>
                               ∩＿＿＿∩ <br/> 
                              |ノ      ヽ<br/> 
