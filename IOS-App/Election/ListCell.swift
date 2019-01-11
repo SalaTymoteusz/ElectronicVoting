@@ -19,8 +19,8 @@ class ListCell: UITableViewCell {
     func setCandidate(candidate: Candidate) {
         
         listImageView.image = candidate.image
-        listTitleLabel.text = candidate.title
-        listPercentLabel.text = String(candidate.percent)
+        listTitleLabel.text = candidate.name
+        listPercentLabel.text = String(candidate.votes / 10)
         listVotesLabel.text = String(candidate.votes)
         
         listImageView.layer.cornerRadius = listImageView.frame.size.width / 2

@@ -14,7 +14,7 @@ class HomePageViewController: UIViewController {
     @IBOutlet weak var dateLabelOutlet: UILabel!
     @IBOutlet weak var tableView: UITableView!
     var candidates: [Candidate] = []
-    var endOfVoting = "2019-01-01"
+    var endOfVoting = "2019-01-11"
     
     
     override func viewDidLoad() {
@@ -35,7 +35,7 @@ class HomePageViewController: UIViewController {
         dateFormatter.dateFormat = "yyyy-MM-dd"
         let futureDateFormated : Date? = dateFormatter.date(from: futureDate)
         let difference = currentDate.timeIntervalSince(futureDateFormated!)
-        let differenceInDays = Int(difference/(60 * 60 * 24)*(-1))
+        let differenceInDays = Int(difference/(60 * 60 * 24)*(-1)+1)
         dateLabelOutlet.text = "Do końca pozostało " + String(differenceInDays) + " Dni"
     }
     
@@ -43,13 +43,20 @@ class HomePageViewController: UIViewController {
         
         var tempCandidates: [Candidate] = []
         
-        let candidate1 = Candidate(image: #imageLiteral(resourceName: "donald"), title: "Vote for Kukiz", votes: 124, percent: 40)
-        let candidate2 = Candidate(image: #imageLiteral(resourceName: "german"), title: "Vote for Mielca", votes: 43, percent: 25)
-        let candidate3 = Candidate(image: #imageLiteral(resourceName: "mask"), title: "Vote for Cicholska", votes: 24, percent: 15)
-        let candidate4 = Candidate(image: #imageLiteral(resourceName: "wanda"), title: "Vote for Trzaskowski", votes: 15, percent: 10)
-        let candidate5 = Candidate(image: #imageLiteral(resourceName: "donald"), title: "Vote for Tusk", votes: 4, percent: 1)
-        let candidate6 = Candidate(image: #imageLiteral(resourceName: "ben"), title: "Vote for Muszynski", votes: 12, percent: 2)
-        let candidate7 = Candidate(image: #imageLiteral(resourceName: "dog375x275"), title: "Vote for Kozuchowski", votes: 531, percent: 80)
+        let candidate1 = Candidate(image: #imageLiteral(resourceName: "donald"), name: "Kukiz", lastName: "Kot", votes: 124, age: 52,
+                                   myStory: "Lorem ipsum dolor sit amet, phasellus augue morbi mauris eget tristique sit, donec auctor suspendisse enim in, et nulla elementum pellentesque adipiscing vestibulum dolor, amet erat ante maecenas quam. Wisi mauris, aenean molestie ipsum feugiat, orci in justo, placerat lacus justo")
+        let candidate2 = Candidate(image: #imageLiteral(resourceName: "german"), name: "Mielca", lastName: "Pies",votes: 43, age: 49,
+                                   myStory: "Lorem ipsum dolor sit amet, phasellus augue morbi mauris eget tristique sit, donec auctor suspendisse enim in, et nulcing vestibulum dolor, amet erat ante maecenas quam. Wisi mauris, aenean molestie ipsum feugiat, orci in justo, placerat lacus justo")
+        let candidate3 = Candidate(image: #imageLiteral(resourceName: "mask"), name: "Cicholska", lastName: "Rybka", votes: 24, age: 33,
+                                   myStory: "Lorem ipsum dolor sit amet, phasellus augue morbi mauris eget tristique sit, donec auctor suspendisse enim instibulum dolor, amet erat ante maecenas quam. Wisi mauris, aenean molestie ipsum feugiat, orci in justo, placerat lacus justo")
+        let candidate4 = Candidate(image: #imageLiteral(resourceName: "wanda"), name: "Trzaskowski", lastName: "Martins", votes: 15, age: 60,
+                                   myStory: "Lorem ipsum drat lacus justo")
+        let candidate5 = Candidate(image: #imageLiteral(resourceName: "donald"), name: "Tusk", lastName: "Sala", votes: 4, age: 58,
+                                   myStory: "Lorem ipsum dolor sit amet, phasellus augue morbi mauris eget tristique sit, donec auctor suspendisse enim in, et nulla elementum pellentesque adipiscing vestibulum dolor, amet erat ante maecenas quam. Wisi mauris, aenean molestie ipsum feugiat, orci in justo, placerat lacus justo")
+        let candidate6 = Candidate(image: #imageLiteral(resourceName: "ben"), name: "Muszynski", lastName: "Wir", votes: 12, age: 43,
+                                   myStory: "Lorem ipsm dolor, amet erat ante maecenas quam. Wisi mauris, aenean molestie ipsum feugiat, orci in justo, placerat lacus justo")
+        let candidate7 = Candidate(image: #imageLiteral(resourceName: "dog375x275"), name: "Kozuchowski", lastName: "Wiss", votes: 531, age: 45,
+                                   myStory: "Lorem ipsum dolor sit amet, phasellus augue morbi mauris eget tristique sit, donec auctor suspendisse enim in, et nulla elementum pellentesque adipiscing vestibulum dolor, amet erat ante maecenas quam. Wisi mauris, aenean molestie ipsum feugiat, orci in justo, placerat lacus justo")
         
 
         
@@ -63,6 +70,7 @@ class HomePageViewController: UIViewController {
         
         return tempCandidates
     }
+    
 
 }
 
@@ -81,4 +89,15 @@ extension HomePageViewController: UITableViewDataSource, UITableViewDelegate {
         return cell
     }
     
-}
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let vc = storyboard?.instantiateViewController(withIdentifier: "UserProfileViewController") as? UserProfileViewController
+        vc?.image = candidates[indexPath.row].image
+        vc?.firstNameLabel = candidates[indexPath.row].name
+        vc?.lastNameLabel = candidates[indexPath.row].lastName
+        vc?.votesLabel = String(candidates[indexPath.row].votes)
+        vc?.ageLabel = String(candidates[indexPath.row].age)
+        vc?.myStoryLabel = candidates[indexPath.row].myStory
+        self.present(vc!, animated:true, completion:nil)
+    }
+    
+} 

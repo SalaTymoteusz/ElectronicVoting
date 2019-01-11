@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		A9320A0621C2E550005A23B7 /* ListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9320A0521C2E550005A23B7 /* ListCell.swift */; };
 		A9320A0A21C2EBBB005A23B7 /* Candidate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9320A0921C2EBBB005A23B7 /* Candidate.swift */; };
+		A9355DE021E8CA0B006A5794 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9355DDF21E8CA0B006A5794 /* SettingsViewController.swift */; };
 		A97CCA1B217891E400D8B311 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A97CCA1A217891E400D8B311 /* AppDelegate.swift */; };
 		A97CCA20217891E400D8B311 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A97CCA1E217891E400D8B311 /* Main.storyboard */; };
 		A97CCA22217891E500D8B311 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A97CCA21217891E500D8B311 /* Assets.xcassets */; };
@@ -18,6 +19,7 @@
 		A97CCA49217A0D8600D8B311 /* SignInViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A97CCA48217A0D8600D8B311 /* SignInViewController.swift */; };
 		A97CCA4B217A222100D8B311 /* RegisterUserViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A97CCA4A217A222100D8B311 /* RegisterUserViewController.swift */; };
 		A97CCA4D217A2D2300D8B311 /* HomePageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A97CCA4C217A2D2300D8B311 /* HomePageViewController.swift */; };
+		A9E0595E21CAC5180002D706 /* UserProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9E0595D21CAC5180002D706 /* UserProfileViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -40,6 +42,7 @@
 /* Begin PBXFileReference section */
 		A9320A0521C2E550005A23B7 /* ListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListCell.swift; sourceTree = "<group>"; };
 		A9320A0921C2EBBB005A23B7 /* Candidate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Candidate.swift; sourceTree = "<group>"; };
+		A9355DDF21E8CA0B006A5794 /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		A97CCA17217891E400D8B311 /* Election.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Election.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A97CCA1A217891E400D8B311 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		A97CCA1F217891E400D8B311 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -55,6 +58,7 @@
 		A97CCA48217A0D8600D8B311 /* SignInViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInViewController.swift; sourceTree = "<group>"; };
 		A97CCA4A217A222100D8B311 /* RegisterUserViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterUserViewController.swift; sourceTree = "<group>"; };
 		A97CCA4C217A2D2300D8B311 /* HomePageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomePageViewController.swift; sourceTree = "<group>"; };
+		A9E0595D21CAC5180002D706 /* UserProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfileViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -109,6 +113,8 @@
 				A97CCA48217A0D8600D8B311 /* SignInViewController.swift */,
 				A97CCA4A217A222100D8B311 /* RegisterUserViewController.swift */,
 				A97CCA4C217A2D2300D8B311 /* HomePageViewController.swift */,
+				A9E0595D21CAC5180002D706 /* UserProfileViewController.swift */,
+				A9355DDF21E8CA0B006A5794 /* SettingsViewController.swift */,
 				A9320A0521C2E550005A23B7 /* ListCell.swift */,
 				A9320A0921C2EBBB005A23B7 /* Candidate.swift */,
 				A97CCA1E217891E400D8B311 /* Main.storyboard */,
@@ -270,10 +276,12 @@
 			files = (
 				A97CCA4B217A222100D8B311 /* RegisterUserViewController.swift in Sources */,
 				A97CCA1B217891E400D8B311 /* AppDelegate.swift in Sources */,
+				A9E0595E21CAC5180002D706 /* UserProfileViewController.swift in Sources */,
 				A97CCA4D217A2D2300D8B311 /* HomePageViewController.swift in Sources */,
 				A9320A0A21C2EBBB005A23B7 /* Candidate.swift in Sources */,
 				A9320A0621C2E550005A23B7 /* ListCell.swift in Sources */,
 				A97CCA49217A0D8600D8B311 /* SignInViewController.swift in Sources */,
+				A9355DE021E8CA0B006A5794 /* SettingsViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -13,15 +13,20 @@ import UIKit
 class Candidate {
     
     var image: UIImage
-    var title: String
+    var name: String
+    var lastName: String
     var votes: Int
-    var percent: Int
+    var age: Int
+    var myStory: String
+    
         
-    init(image: UIImage, title: String, votes: Int, percent: Int) {
+    init(image: UIImage, name: String, lastName: String, votes: Int, age: Int, myStory: String) {
         self.image = image
-        self.title = title
+        self.name = name
+        self.lastName = lastName
         self.votes = votes
-        self.percent = percent
+        self.age = age
+        self.myStory = myStory
     }
 }
 
