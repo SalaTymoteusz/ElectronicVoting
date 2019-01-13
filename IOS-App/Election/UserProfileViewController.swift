@@ -32,7 +32,7 @@ class UserProfileViewController: UIViewController {
         lastName.text = lastNameLabel
         votes.text = votesLabel
         age.text = ageLabel
-        myStory.text = myStoryLabel
+     //   myStory.text = myStoryLabel
         
         
         img.image = image
