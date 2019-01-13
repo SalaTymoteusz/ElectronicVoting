@@ -88,11 +88,13 @@ exports.destroy = async (req, res) => {
   }
 };
 exports.login = async (req, res, next) => {
+  console.log(req.body);
   passport.authenticate('local', (err, user, info) => {
     try {
-      var error = err || info;
+      var error =  err || info;
       if (error) {
-        throw new ResponseWithError(401, error)
+        
+        throw error
       }
       if (!user) {
         throw new ResponseWithError(404, "Not Found")
