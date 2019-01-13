@@ -2826,7 +2826,7 @@ body.is-touch .tiles article .content {
         text-decoration: none;
         text-transform: uppercase;
         display: inline-block;
-        position: fixed;
+        position: absolute;
         right: 15em;
         top: 2.7em;
         z-index: 10000;
@@ -2842,7 +2842,7 @@ body.is-touch .tiles article .content {
         text-decoration: none;
         text-transform: uppercase;
         display: inline-block;
-        position: fixed;
+        position: absolute;
         right: 8em;
         top: 2.7em;
         z-index: 10000;
