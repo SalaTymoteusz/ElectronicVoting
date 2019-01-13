@@ -13,4 +13,4 @@ const ImageSchema = new Schema({
         data: Buffer, contentType: String
     }
 });
-module.exports = mongoose.model("Image", ImageSchema, "Images");
+module.exports = mongoose.model("Image", ImageSchema, "Images"); 

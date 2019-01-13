@@ -88,11 +88,11 @@ exports.destroy = async (req, res) => {
   }
 };
 exports.login = async (req, res, next) => {
-  try {
-    passport.authenticate('local', function (err, user, info) {
+  passport.authenticate('local', (err, user, info) => {
+    try {
       var error = err || info;
       if (error) {
-        return new ResponseWithError(401, error)
+        throw new ResponseWithError(401, error)
       }
       if (!user) {
         throw new ResponseWithError(404, "Not Found")
@@ -106,12 +106,13 @@ exports.login = async (req, res, next) => {
         user: user.profile,
         token: token
       });
-    })(req, res, next);
-  }
-  catch (e) {
-    debug(err);
-    res.sendError(err)
-  }
+    }
+    catch (err) {
+      debug(err);
+      res.sendError(err)
+    }
+  })(req, res, next);
+
 }
 
 
