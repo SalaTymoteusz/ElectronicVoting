@@ -671,6 +671,7 @@
                         <outlet property="firstName" destination="Jp1-0t-hCW" id="L5c-Mk-L6y"/>
                         <outlet property="img" destination="do0-Gc-lE0" id="sLO-Gu-BP4"/>
                         <outlet property="lastName" destination="cfp-fR-oOm" id="nMt-f2-2sF"/>
+                        <outlet property="myStory" destination="YMk-76-w4r" id="VMj-hT-W8F"/>
                         <outlet property="votes" destination="zp7-ky-BHA" id="skO-Uq-2Tr"/>
                     </connections>
                 </viewController>

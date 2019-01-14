@@ -1,0 +1,6 @@
+framework module Pods_ElectionTests {
+  umbrella header "Pods-ElectionTests-umbrella.h"
+
+  export *
+  module * { export * }
+}
