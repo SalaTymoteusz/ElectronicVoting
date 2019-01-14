@@ -88,7 +88,6 @@ exports.destroy = async (req, res) => {
   }
 };
 exports.login = async (req, res, next) => {
-  console.log(req.body);
   passport.authenticate('local', (err, user, info) => {
     try {
       var error =  err || info;
@@ -105,8 +104,8 @@ exports.login = async (req, res, next) => {
           expiresIn: 60 * 5 * 60
         });
       res.sendSuccess({
-        user: user.profile,
-        token: token
+        ...user.profile,
+        token
       });
     }
     catch (err) {
