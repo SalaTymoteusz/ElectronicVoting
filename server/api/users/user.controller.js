@@ -54,6 +54,23 @@ exports.create = async (req, res) => {
     res.sendError(err)
   }
 };
+exports.update = async (req, res) => {
+  try {
+    const user = await User.findById(req.params.id);
+    if (!user)
+      throw new ResponseWithError(404, "Not Found");
+     
+      let userData={desc,surname}=req.body;
+      await user.update(userData);
+    res.sendSuccess({
+      ...user.profile,
+      ...userData
+    }, 201)
+  } catch (err) {
+    debug(err);
+    res.sendError(err)
+  }
+};
 exports.show = async (req, res) => {
   //TODO: user Authentication
   try {
