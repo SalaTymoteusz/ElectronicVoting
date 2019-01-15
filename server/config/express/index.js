@@ -3,6 +3,7 @@
 const express = require('express');
 const morgan = require('morgan');
 const bodyParser = require('body-parser');
+require('body-parser-xml')(bodyParser);
 const config = require('./config');
 const cors = require('cors');
 const sendData = require("../../helpers/express.plugins/sendData");
@@ -15,6 +16,12 @@ module.exports = (app)=> {
 //parse body
   app.use(bodyParser.urlencoded({ extended: false }));
   app.use(bodyParser.json());
+  app.use(bodyParser.xml({
+    xmlParseOptions:{
+    explicitRoot:false,
+    explicitArray:false
+  }
+}));
  
   app.use(express.static('public')); 
   //set cors
@@ -22,6 +29,7 @@ module.exports = (app)=> {
 
   //use Send data
   app.use(sendData);
+ 
  
 
   //set config path for public
