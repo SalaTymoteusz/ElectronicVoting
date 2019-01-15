@@ -45,6 +45,10 @@ const UserSchema = new Schema({
     desc: {
         type: String,
     },
+    email: {
+        type: String,
+        required: true,
+    },
     age: {
         type: Number,
         required: true,
@@ -52,6 +56,13 @@ const UserSchema = new Schema({
     votes:{
         type: Number,
         default:0,
+    },
+    voteNumber:{
+        type: Number,
+    },
+    candidate:{
+        type:Boolean,
+        default:false
     },
     gaveVote:{
         type:Boolean,
@@ -83,6 +94,10 @@ UserSchema.virtual('public').get(function () {
         _id: this._id,
         name: this.name,
         surname: this.surname,
+        email: this.email,
+        candidate: this.candidate,
+        votes: this.votes,
+        gaveVote: this.gaveVote,
         pesel: this.pesel,
         desc: this.desc,
         age: this.age,
@@ -94,6 +109,10 @@ UserSchema.virtual('profile').get(function () {
         _id: this._id,
         name: this.name,
         surname: this.surname,
+        email: this.email,
+        candidate: this.candidate,
+        votes: this.votes,
+        gaveVote: this.gaveVote,
         pesel: this.pesel,
         desc: this.desc,
         age: this.age,
@@ -132,6 +151,27 @@ UserSchema.path('pesel').validate(async function (value) {
         });
 }, 'The specified Pesel is already in use.');
 
+UserSchema.path('email').validate(async function (value) {
+    const self = this;
+
+    return await this.constructor
+        .findOne({
+            email: value
+        })
+        .then(function (user) {
+            if (user) {
+                if (self.id === user.id) {
+                    return false;
+                }
+                return false;
+            }
+            return true;
+        })
+        .catch(function (err) {
+            debug(err);
+            throw err;
+        });
+}, 'The specified email is already in use.');
 var validatePresenceOf = function (value) {
     return value && value.length;
 };

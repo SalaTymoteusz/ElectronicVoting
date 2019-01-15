@@ -1,3 +1,4 @@
+var xmlify = require('xmlify');
 let isError = function(e){
     return e && e.stack && e.message && typeof e.stack === 'string' 
            && typeof e.message === 'string';
@@ -14,7 +15,9 @@ module.exports= (req,res,next)=>{
         //     res.header('Content-Type', 'text/xml');
         //     var xml = easyxml.render(obj);
         //     res.send(xml);
-        } else {
+        } else if (req.accepts('xml')){
+            res.send(xmlify(obj));
+        }else {
            res.send(406);
         }
     }
