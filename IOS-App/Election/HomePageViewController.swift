@@ -7,10 +7,12 @@
 //
 
 import UIKit
+import SwiftKeychainWrapper
 
 
 class HomePageViewController: UIViewController {
     
+
     @IBOutlet weak var dateLabelOutlet: UILabel!
     @IBOutlet weak var tableView: UITableView!
     var candidates: [Candidate] = []
@@ -19,12 +21,21 @@ class HomePageViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         candidates = createArray()
         
         tableView.delegate = self
         tableView.dataSource = self
         untilDate(date: endOfVoting)
+    }
+    
+    @IBAction func signOut(_ sender: Any) {
+        KeychainWrapper.standard.removeObject(forKey: "accessToken")
+        KeychainWrapper.standard.removeObject(forKey: "userId")
+        
+        let signInPage = self.storyboard?.instantiateViewController(withIdentifier: "SignInViewController") as! SignInViewController
+        let appDelegate = UIApplication.shared.delegate
+        appDelegate?.window??.rootViewController = signInPage
+        
     }
     
     func untilDate(date: String){
@@ -99,5 +110,7 @@ extension HomePageViewController: UITableViewDataSource, UITableViewDelegate {
         vc?.myStoryLabel = candidates[indexPath.row].myStory
         self.present(vc!, animated:true, completion:nil)
     }
+    
+    
     
 } 

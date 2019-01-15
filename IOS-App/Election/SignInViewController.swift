@@ -100,12 +100,12 @@ class SignInViewController: UIViewController {
                     print("Access token: \(String(describing: accessToken!))")
 
                     
-               //     let saveAccessToken: Bool = KeychainWrapper.standard.set(accessToken!, forKey: "accessToken")
+                    let saveAccessToken: Bool = KeychainWrapper.standard.set(accessToken!, forKey: "accessToken")
 
-            //        let saveUserId: Bool = KeychainWrapper.standard.set(userId!, forKey: "userId")
+                    let saveUserId: Bool = KeychainWrapper.standard.set(userId!, forKey: "userId")
 
-              //      print("The access token save resoult \(saveAccessToken)")
-               //     print("The user id save resoult \(saveUserId)")
+                    print("The access token save resoult \(saveAccessToken)")
+                    print("The user id save resoult \(saveUserId)")
                     
                     if (accessToken?.isEmpty)!
                     {
