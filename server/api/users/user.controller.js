@@ -60,7 +60,7 @@ exports.update = async (req, res) => {
     if (!user)
       throw new ResponseWithError(404, "Not Found");
      
-      let userData={desc,surname}=req.body;
+      let userData={desc,surname,email}=req.body;
       await user.update(userData);
     res.sendSuccess({
       ...user.profile,
