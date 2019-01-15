@@ -248,8 +248,7 @@
                                     <navigationItem id="YnS-qU-8cb">
                                         <barButtonItem key="leftBarButtonItem" title="Sign out" id="Is5-bG-9nt">
                                             <connections>
-                                                <action selector="signOutButtonTapped:" destination="fba-bS-DO9" id="qmV-sz-6YB"/>
-                                                <segue destination="BYZ-38-t0r" kind="show" id="stp-S4-46E"/>
+                                                <action selector="signOut:" destination="XwQ-Mh-D1R" id="nQT-6t-bkr"/>
                                             </connections>
                                         </barButtonItem>
                                         <barButtonItem key="rightBarButtonItem" title="Settings" id="jx8-47-rlZ">
@@ -362,7 +361,6 @@
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Cgr-0d-LhG" userLabel="First Responder" sceneMemberID="firstResponder"/>
-                <exit id="fba-bS-DO9" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
             <point key="canvasLocation" x="1442.4000000000001" y="132.68365817091455"/>
         </scene>
@@ -432,7 +430,7 @@
                                 <fontDescription key="fontDescription" name="OriyaSangamMN-Bold" family="Oriya Sangam MN" pointSize="17"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Guest" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YhI-rH-GiW">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YhI-rH-GiW">
                                 <rect key="frame" x="107" y="259" width="206" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
@@ -440,7 +438,7 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Guest" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zFx-To-HGc">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zFx-To-HGc">
                                 <rect key="frame" x="107" y="290" width="206" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -448,7 +446,7 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="18" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vLk-7d-N3x">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vLk-7d-N3x">
                                 <rect key="frame" x="53" y="321" width="260" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -464,7 +462,7 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="00082284536" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QnP-9y-ltw">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QnP-9y-ltw">
                                 <rect key="frame" x="65" y="383" width="248" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -549,6 +547,12 @@
                         <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                         <viewLayoutGuide key="safeArea" id="6AG-zt-YJF"/>
                     </view>
+                    <connections>
+                        <outlet property="ageLabel" destination="vLk-7d-N3x" id="7WF-TO-UG9"/>
+                        <outlet property="firstNameLabel" destination="YhI-rH-GiW" id="9h5-VE-Oxr"/>
+                        <outlet property="lastNameLabel" destination="zFx-To-HGc" id="kqB-rE-P9a"/>
+                        <outlet property="peselLabel" destination="QnP-9y-ltw" id="NZh-YH-A64"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="o2N-jM-gUJ" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -671,6 +675,7 @@
                         <outlet property="firstName" destination="Jp1-0t-hCW" id="L5c-Mk-L6y"/>
                         <outlet property="img" destination="do0-Gc-lE0" id="sLO-Gu-BP4"/>
                         <outlet property="lastName" destination="cfp-fR-oOm" id="nMt-f2-2sF"/>
+                        <outlet property="myStory" destination="YMk-76-w4r" id="VMj-hT-W8F"/>
                         <outlet property="votes" destination="zp7-ky-BHA" id="skO-Uq-2Tr"/>
                     </connections>
                 </viewController>

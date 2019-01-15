@@ -1,0 +1,6 @@
+framework module Pods_Election {
+  umbrella header "Pods-Election-umbrella.h"
+
+  export *
+  module * { export * }
+}
