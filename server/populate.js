@@ -96,10 +96,14 @@ const surnames=[
 let pesels=[];
 let list=[];
   for(let i=0;i<populateNumber;i++){
-     list.push(new User({
-         name: names[Math.floor(Math.random() * names.length)],
-         surname:surnames[Math.floor(Math.random() * surnames.length)],
-         pesel:makePesel(),
+      let name=names[Math.floor(Math.random() * names.length)];
+      let surname=surnames[Math.floor(Math.random() * surnames.length)];
+        let pesel=makePesel();
+      list.push(new User({
+         name ,
+         surname,
+         pesel,
+         email:`${pesel}@${name}.pl`,
          IDCardNumber:makeid(),
          age:Math.floor(Math.random() * 70),
          password:"test"
