@@ -13,6 +13,7 @@ exports.index = async (req, res) => {
     //search for users
     const data = await User.find()
     data.map(x => x.profile);
+    res.header("x-count",data.length);
     res.sendSuccess(data);
   } catch (err) {
     debug(err);
