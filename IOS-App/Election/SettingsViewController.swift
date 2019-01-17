@@ -8,12 +8,49 @@ class SettingsViewController: UIViewController {
     @IBOutlet weak var lastNameLabel: UILabel!
     @IBOutlet weak var ageLabel: UILabel!
     @IBOutlet weak var peselLabel: UILabel!
+    @IBOutlet weak var avatarImage: UIImageView!
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        loadMemberProfile()
+       loadMemberProfile()
+       loadMemberAvatar()
+    }
     
+    func loadMemberAvatar()
+    {
+        let accessToken: String? = KeychainWrapper.standard.string(forKey: "accessToken")
+        let userId: String? = KeychainWrapper.standard.string(forKey: "userId")
+        let avatarUrl = URL(string: "http://localhost:3000/Images/avatar/\(userId!)")
+
+        var request = URLRequest(url:avatarUrl!)
+        request.httpMethod = "GET"// Compose a query string
+        request.addValue("\(accessToken!)", forHTTPHeaderField: "Authorization")
+
+        let task = URLSession.shared.dataTask(with: request) { (data: Data?, response: URLResponse?, error: Error?) in
+
+            if error != nil
+            {
+                self.displayMessage(userMessage: ". Please try again later")
+                print("error=\(String(describing: error))")
+                return
+            }
+
+
+                    DispatchQueue.main.async
+                        {
+
+                            self.avatarImage.image = UIImage(data: data!)
+                            self.avatarImage.layer.cornerRadius = self.avatarImage.frame.size.width / 2
+                            self.avatarImage.clipsToBounds = true
+                            self.avatarImage.layer.borderColor = UIColor.darkGray.cgColor
+                            self.avatarImage.layer.borderWidth = 6
+
+                    }
+
+        }
+        task.resume()
+
     }
     
     func loadMemberProfile()
