@@ -7,11 +7,11 @@ const jsign = require('jsonwebtoken/sign');
 const ResponseWithError = require("../../helpers/errors");
 
 exports.index = async (req, res) => {
-  console.log(req.user)
-  //TODO: user Authentication
+  console.log(req.query)
+
   try {
     //search for users
-    const data = await User.find()
+    const data = await User.find(req.query)
     data.map(x => x.profile);
     res.header("x-count",data.length);
     res.sendSuccess(data);
