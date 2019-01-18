@@ -56,11 +56,12 @@ exports.create = async (req, res) => {
   }
 };
 exports.update = async (req, res) => {
+  console.log(req.body);
   try {
     const user = await User.findById(req.params.id);
     if (!user)
       throw new ResponseWithError(404, "Not Found");
-     
+
       let userData={desc,surname,email}=req.body;
       await user.update(userData);
     res.sendSuccess({
@@ -110,7 +111,7 @@ exports.login = async (req, res, next) => {
     try {
       var error =  err || info;
       if (error) {
-        
+
         throw error
       }
       if (!user) {
@@ -133,7 +134,3 @@ exports.login = async (req, res, next) => {
   })(req, res, next);
 
 }
-
-
-
-

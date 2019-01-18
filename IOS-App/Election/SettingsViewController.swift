@@ -9,7 +9,10 @@ class SettingsViewController: UIViewController {
     @IBOutlet weak var ageLabel: UILabel!
     @IBOutlet weak var peselLabel: UILabel!
     @IBOutlet weak var avatarImage: UIImageView!
+    @IBOutlet weak var emailLabel: UILabel!
+    @IBOutlet weak var descTextView: UITextView!
     
+    var doIt = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -17,6 +20,56 @@ class SettingsViewController: UIViewController {
        loadMemberAvatar()
     }
     
+    
+    @IBAction func goCandidateButtonTapped(_ sender: Any) {
+        
+        //declare parameter as a dictionary which contains string as key and value combination. considering inputs are valid
+        
+        let parameters = ["candidate":true]
+
+        let userId: String? = KeychainWrapper.standard.string(forKey: "userId")
+        //create the url with URL
+        let url = URL(string: "http://localhost:3000/users/\(userId!)") //change the url
+        
+        //create the session object
+        //now create the URLRequest object using the url object
+        var request = URLRequest(url: url!)
+        request.httpMethod = "PUT" //set http method as POST
+        request.addValue("application/json", forHTTPHeaderField: "content-type")
+        request.addValue("application/json", forHTTPHeaderField: "Accept")
+        do {
+            request.httpBody = try JSONSerialization.data(withJSONObject: parameters, options: .prettyPrinted)
+        } catch let error {
+            print(error.localizedDescription)
+            displayMessage(userMessage: "Something went wrong. Try again")
+            return
+        }
+        
+        
+        //create dataTask using the session object to send data to the server
+        let task = URLSession.shared.dataTask(with: request) {(data: Data?, response: URLResponse?, error: Error?) in
+            
+            if error != nil
+            {
+                self.displayMessage(userMessage: "Could not successfully perform this request. Please try again later")
+                print("error=\(String(describing: error))")
+                return
+            }
+            
+            
+        }
+        
+        task.resume()
+    }
+    
+    
+
+
+    
+    
+
+
+
     func loadMemberAvatar()
     {
         let accessToken: String? = KeychainWrapper.standard.string(forKey: "accessToken")
@@ -84,12 +137,17 @@ class SettingsViewController: UIViewController {
                             let lastName: String? = parseJSON["surname"] as? String
                             let age: Int?  = parseJSON["age"] as? Int
                             let pesel: String? = parseJSON["pesel"] as? String
-                            
+                            let email: String? = parseJSON["email"] as? String
+                            let desc: String? = parseJSON["desc"] as? String
+
                             if firstName?.isEmpty != true && lastName?.isEmpty != true && pesel?.isEmpty != true {
                                 self.firstNameLabel.text =  firstName!
                                 self.lastNameLabel.text =  lastName!
                                 self.ageLabel.text = String(age!)
                                 self.peselLabel.text = pesel!
+                                self.emailLabel.text = email!
+                                self.descTextView.text = desc!
+
                             }
                     }
                 } else {
