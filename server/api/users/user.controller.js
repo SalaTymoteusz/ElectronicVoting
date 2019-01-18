@@ -8,8 +8,20 @@ const ResponseWithError = require("../../helpers/errors");
 
 exports.index = async (req, res) => {
   console.log(req.query)
+  for(let q in req.query){
+    if(req.query[q][0]=='/'){
+      req.query[q]=req.query[q].slice(1,req.query[q].length);
+      req.query[q]= new RegExp(req.query[q]);
+    }
+  }
+  console.log(req.query)
 
-  try {
+  // req.query.map(x=>{
+  //   if(x[0]=='/')
+  //     return new RegExp(x);
+  //   else return x;
+  // })
+  try { 
     //search for users
     const data = await User.find(req.query)
     data.map(x => x.profile);
