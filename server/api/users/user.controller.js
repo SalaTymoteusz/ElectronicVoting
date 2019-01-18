@@ -47,8 +47,8 @@ exports.create = async (req, res) => {
       });
     //response with simple user Data and token
     res.sendSuccess({
-      user: user.profile,
-      token: token
+      ...user.profile,
+      token
     }, 201)
   } catch (err) {
     debug(err);
