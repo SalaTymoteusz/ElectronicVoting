@@ -1,2 +1,2 @@
 # ElectronicVoting
-React + Redux - User Registration and Login application that uses JWT authentication
+Hubert, Kacper, Tymek and Nikita are in the process of making Electronic Voting Great Again
