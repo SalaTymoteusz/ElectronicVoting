@@ -1,4 +1,6 @@
 import UIKit
+import SwiftKeychainWrapper
+
 
 class RegisterUserViewController: UIViewController {
 
@@ -81,7 +83,8 @@ class RegisterUserViewController: UIViewController {
                           "IDCardNumber": emailAddressTextField.text!,
                           "password": passwordTextField.text!,
                           "age": ageTextField.text!,
-                          "pesel": peselTextField.text!
+                          "pesel": peselTextField.text!,
+                          "email": emailAddressTextField.text!
                           ] as [String: String]
         
         do {
@@ -107,7 +110,7 @@ class RegisterUserViewController: UIViewController {
                 
                 if let parseJSON = json {
                     
-                    let userId = parseJSON["token"] as? String
+                    let userId = parseJSON["_id"] as? String
                     print("User id: \(String(describing: userId!))")
                     
                     if (userId?.isEmpty)!

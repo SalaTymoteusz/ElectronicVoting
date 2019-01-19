@@ -7,12 +7,25 @@ const jsign = require('jsonwebtoken/sign');
 const ResponseWithError = require("../../helpers/errors");
 
 exports.index = async (req, res) => {
-  console.log(req.user)
-  //TODO: user Authentication
-  try {
+  console.log(req.query)
+  for(let q in req.query){
+    if(req.query[q][0]=='/'){
+      req.query[q]=req.query[q].slice(1,req.query[q].length);
+      req.query[q]= new RegExp(req.query[q]);
+    }
+  }
+  console.log(req.query)
+
+  // req.query.map(x=>{
+  //   if(x[0]=='/')
+  //     return new RegExp(x);
+  //   else return x;
+  // })
+  try { 
     //search for users
-    const data = await User.find()
+    const data = await User.find(req.query)
     data.map(x => x.profile);
+    res.header("x-count",data.length);
     res.sendSuccess(data);
   } catch (err) {
     debug(err);
@@ -46,8 +59,8 @@ exports.create = async (req, res) => {
       });
     //response with simple user Data and token
     res.sendSuccess({
-      user: user.profile,
-      token: token
+      ...user.profile,
+      token
     }, 201)
   } catch (err) {
     debug(err);
@@ -55,11 +68,12 @@ exports.create = async (req, res) => {
   }
 };
 exports.update = async (req, res) => {
+  console.log(req.body);
   try {
     const user = await User.findById(req.params.id);
     if (!user)
       throw new ResponseWithError(404, "Not Found");
-     
+
       let userData={desc,surname,email}=req.body;
       await user.update(userData);
     res.sendSuccess({
@@ -109,7 +123,7 @@ exports.login = async (req, res, next) => {
     try {
       var error =  err || info;
       if (error) {
-        
+
         throw error
       }
       if (!user) {
@@ -132,7 +146,3 @@ exports.login = async (req, res, next) => {
   })(req, res, next);
 
 }
-
-
-
-
