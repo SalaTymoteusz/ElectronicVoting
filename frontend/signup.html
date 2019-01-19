@@ -1,11 +1,13 @@
 ﻿<!DOCTYPE html>
 
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+
 <head>
     <meta charset="utf-8" />
     <title>Sign Up</title>
     <link rel="stylesheet" href="assets/css/signup.css" />
 </head>
+
 <body>
     <form action="action_page.php" style="border:1px solid #ccc">
         <div class="container">
@@ -13,14 +15,27 @@
             <p>Please fill in this form to create an account.</p>
             <hr>
 
+            <label for="name"><b>Name</b></label>
+            <input type="text" name="name" id="name" required/>
+
+            <label for="surname"><b>Surname</b></label>
+            <input type="text" name="surname" id="surname" required/>
+
+            <label for="pesel"><b>Pesel</b></label>
+            <input type="text" name="pesel" id="pesel" required/>
+
+            <label for="IDCardNumber"><b>IDCardNumber</b></label>
+            <input type="text" name="IDCardNumber" id="IDCardNumber" required/>
+
             <label for="email"><b>Email</b></label>
-            <input type="text" placeholder="Enter Email" name="email" required>
+            <input type="text" name="email" id="email" required/>
 
-            <label for="psw"><b>Password</b></label>
-            <input type="password" placeholder="Enter Password" name="psw" required>
+            <label for="age"><b>Age</b></label>
+            <input type="number" name="age" id="age" min="1" required/>
+            <br><br>
 
-            <label for="psw-repeat"><b>Repeat Password</b></label>
-            <input type="password" placeholder="Repeat Password" name="psw-repeat" required>
+            <label for="password"><b>Password</b></label>
+            <input type="password" name="password" id="password" required/>
 
             <label>
                 <input type="checkbox" checked="checked" name="remember" style="margin-bottom:15px"> Remember me
@@ -30,9 +45,37 @@
 
             <div class="clearfix">
                 <button type="button" class="cancelbtn">Cancel</button>
-                <button type="submit" class="signupbtn">Sign Up</button>
+                <button type="submit" class="signupbtn" id="signupbutton">Sign Up</button>
             </div>
         </div>
     </form>
-</body>
-</html>
+
+
+
+    <script>
+        console.log(document.getElementById("name").value)
+        console.log(document.getElementById("email").value)
+
+        document.getElementById('signupbutton').addEventListener('click', send);
+
+        function send() {
+            var http = new XMLHttpRequest();
+            var url = 'http://localhost:3000/users';
+            var params = `name=${document.getElementById("name").value}&surname=${document.getElementById("surname").value}&pesel=${document.getElementById("pesel").value}&IDCardNumber=${document.getElementById("IDCardNumber").value}&email=${document.getElementById("email").value}&age=11&password=${document.getElementById("password").value}`;
+            http.open('POST', url, true);
+
+            //Send the proper header information along with the request
+            http.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+
+            http.onreadystatechange = function () {//Call a function when the state changes.
+                if (http.readyState == 4 && http.status == 200) {
+                    alert(http.responseText);
+                }
+            }
+            //console.log(params)
+            http.send(params);
+            location.href = "index.html";
+        }
+    </script>
+</body >
+</html >
