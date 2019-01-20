@@ -1,70 +1,101 @@
 ﻿<!DOCTYPE html>
 
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+
 <head>
     <meta charset="utf-8" />
     <title>Login</title>
     <link rel="stylesheet" href="assets/css/login.css" />
+
+    <script type="text/javascript">
+        function id(id) {
+            return document.getElementById(id);
+        }
+        function setCookie(c_name, value, expiredays) {
+            var exdate = new Date();
+            exdate.setDate(exdate.getDate() + expiredays);
+            document.cookie = c_name + "=" + escape(value) +
+                ((expiredays == null) ? "" : ";expires=" + exdate.toUTCString());
+        }
+        function login(form) {
+            if (form.pesel.value == "") {
+                id("note1").textContent = "please enter the pesel";
+                form.pesel.focus();
+                return;
+            }
+            else
+                id("note1").textContent = "";
+            if (form.password.value == "") {
+                id("note2").textContent = "please enter the password";
+                form.password.focus();
+                return;
+            }
+            else
+                id("note2").textContent = "";
+
+            var ajax = new XMLHttpRequest();
+            ajax.onreadystatechange = function () {
+                if (this.readyState == 4 && this.status == 200) {
+                    var check = this.responseText;
+                    alert(check);
+                    if (check == "true") {
+                        setCookie('pesel', form.pesel.value, 10);
+                        location.replace("index.html");
+                    }
+                    else if (check == "false") {
+                        id("response").textContent = "wrong pesel or password";
+                        return;
+                    }
+                    else {
+                        id("response").textContent = "...error";
+                        return;
+                    }
+                }
+            }
+            ajax.open("POST", "http://localhost:3000/users/login");
+            ajax.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+            ajax.send("pesel=" + form.pesel.value + "&password=" + form.password.value);
+        }
+
+    </script>
+
 </head>
 
 <!-- 
 <body>
-
     <button id="get"> GET DATA </button>
     <button id="send"> SEND DATA </button>
-
     <script>
         document.getElementById('get').addEventListener('click', get);
         document.getElementById('send').addEventListener('click', send);
 
         const url = 'http://localhost:3000/users'; // Get all users
 
-        function get() {
-            var xhReq = new XMLHttpRequest();
-            xhReq.open("GET", url, false);
-            xhReq.send(null);
-            var jsonObject = JSON.parse(xhReq.responseText);
+        function get() {}
 
-            console.log(jsonObject);
-
-        }
-
-        function send() {
-            var http = new XMLHttpRequest();
-            var url = 'http://localhost:3000/users';
-            var params = 'name=Jan&surname=Kowalski&pesel=98111110475&IDCardNumber=123456&email=place@place.com&age=11&password=password';
-            http.open('POST', url, true);
-
-            //Send the proper header information along with the request
-            http.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
-
-            http.onreadystatechange = function () {//Call a function when the state changes.
-                if (http.readyState == 4 && http.status == 200) {
-                    alert(http.responseText);
-                }
-            }
-            http.send(params);
-
-        }
-
+        function send() {}
     </script>
 </body>
  -->
 
 <body>
-    <form action="action_page.php">
+    <form>
         <div class="imgcontainer">
             <img src="images/img_avatar.png" alt="Avatar" class="avatar">
         </div>
 
         <div class="container">
-            <label for="uname"><b>Username</b></label>
-            <input type="text" placeholder="Enter Username" name="uname" required>
+            <label for="pesel"><b>Pesel</b></label>
+            <input type="text" placeholder="Enter your PESEL" name="pesel" required>
+            <span id="note1"></span><br>
 
-            <label for="psw"><b>Password</b></label>
-            <input type="password" placeholder="Enter Password" name="psw" required>
+            <label for="password"><b>Password</b></label>
+            <input type="password" placeholder="Enter your Password" name="password" required>
+            <span id="note2"></span><br>
 
-            <button type="submit">Login</button>
+            <!-- <button type="submit" onclick="login(this.form)">Login</button> -->
+            <input class="login" type="button" value="Login" onclick="login(this.form)" />
+            <p id="response"></p>
             <label>
                 <input type="checkbox" checked="checked" name="remember"> Remember me
             </label>
@@ -76,4 +107,5 @@
         </div>
     </form>
 </body>
+
 </html>

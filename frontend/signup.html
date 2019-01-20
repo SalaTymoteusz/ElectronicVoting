@@ -9,7 +9,7 @@
 </head>
 
 <body>
-    <form action="action_page.php" style="border:1px solid #ccc">
+    <form style="border:1px solid #ccc">
         <div class="container">
             <h1>Sign Up</h1>
             <p>Please fill in this form to create an account.</p>
@@ -71,12 +71,14 @@
 
             http.onreadystatechange = function () {//Call a function when the state changes.
                 if (http.readyState == 4 && http.status == 200) {
-                    alert(http.responseText);
+                    console.log(http.responseText);
                 }
             }
             //console.log(params)
+            console.log(http.responseText);
             http.send(params);
-            location.href = "index.html";
+            
+            //location.href = "index.html";
         }
     </script>
 </body >
