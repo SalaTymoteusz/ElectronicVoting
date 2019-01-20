@@ -11,23 +11,43 @@
 <body>
 
     <button id="get"> GET DATA </button>
+    <button id="send"> SEND DATA </button>
 
     <script>
         document.getElementById('get').addEventListener('click', get);
-    
+        document.getElementById('send').addEventListener('click', send);
+
         const url = 'http://localhost:3000/users'; // Get all users
-    
+
         function get() {
             var xhReq = new XMLHttpRequest();
             xhReq.open("GET", url, false);
             xhReq.send(null);
             var jsonObject = JSON.parse(xhReq.responseText);
-    
+
             console.log(jsonObject);
-    
+
         }
+
+        function send() {
+            var http = new XMLHttpRequest();
+            var url = 'http://localhost:3000/users';
+            var params = 'name=Jan&surname=Kowalski&pesel=98111110475&IDCardNumber=123456&email=place@place.com&age=11&password=password';
+            http.open('POST', url, true);
+
+            //Send the proper header information along with the request
+            http.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+
+                if (http.readyState == 4 && http.status == 200) {
+                    alert(http.responseText);
+                }
+            }
+            http.send(params);
+
+        }
+
     </script>
-</body>  
+</body>
  -->
 
 <body>
