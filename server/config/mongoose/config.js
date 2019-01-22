@@ -1,6 +1,6 @@
 
 module.exports = {
-      uri: 'mongodb://localhost/voting',
+      uri: process.env.MONGOURI || 'mongodb://localhost/ElectronicVoting',
         options: {
              useNewUrlParser: true 
         }
