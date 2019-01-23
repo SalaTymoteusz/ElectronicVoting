@@ -1,32 +1,31 @@
 //
-//  List.swift
-//  Election
+//  Course.swift
+//  swift4_1_json_decode
 //
-//  Created by xxx on 13/12/2018.
-//  Copyright © 2018 xxx. All rights reserved.
+//  Created by xxx on 21/01/2019.
+//  Copyright © 2019 Brian Voong. All rights reserved.
 //
 
 import Foundation
-import UIKit
 
-
-class Candidate {
+class Course: Decodable {
+    let _id: String
+    let name: String
+    let surname: String
+    let email: String
+    let candidate: Bool
+    let votes: Int
+    let gaveVote: Bool
+    let pesel: String
+    let desc: String
+    let age: Int
     
-    var image: UIImage
-    var name: String
-    var lastName: String
-    var votes: Int
-    var age: Int
-    var myStory: String
     
-
-    init(image: UIImage, name: String, lastName: String, votes: Int, age: Int, myStory: String) {
-        self.image = image
-        self.name = name
-        self.lastName = lastName
-        self.votes = votes
-        self.age = age
-        self.myStory = myStory
+    
+    // swift 4.0
+    private enum CodingKeys: String, CodingKey {
+        case _id, name, surname, email, pesel, desc
+        case candidate, gaveVote
+        case age, votes
     }
 }
-

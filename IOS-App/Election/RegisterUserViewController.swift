@@ -84,7 +84,8 @@ class RegisterUserViewController: UIViewController {
                           "password": passwordTextField.text!,
                           "age": ageTextField.text!,
                           "pesel": peselTextField.text!,
-                          "email": emailAddressTextField.text!
+                          "email": emailAddressTextField.text!,
+                          "desc": "moj desc"
                           ] as [String: String]
         
         do {

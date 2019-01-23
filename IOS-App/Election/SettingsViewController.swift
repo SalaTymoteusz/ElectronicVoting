@@ -11,23 +11,94 @@ class SettingsViewController: UIViewController {
     @IBOutlet weak var avatarImage: UIImageView!
     @IBOutlet weak var emailLabel: UILabel!
     @IBOutlet weak var descTextView: UITextView!
+    @IBOutlet weak var goCandidate: UIButton!
+    @IBOutlet weak var editLastNameButton: EditSettButton!
+    @IBOutlet weak var editEmailButton: EditSettButton!
+    @IBOutlet weak var editDescButton: EditSettButton!
+    @IBOutlet weak var surnameTextField: UITextField!
+    @IBOutlet weak var emailTextField: UITextField!
+    @IBOutlet weak var descTextField: UITextField!
     
-    var doIt = false
-    
+
+
     override func viewDidLoad() {
         super.viewDidLoad()
-       loadMemberProfile()
-       loadMemberAvatar()
+        hide(textField: true, label: false)
+        loadMemberAvatar()
+        loadMemberProfile()
+        
+  //      goCandidate.setTitle("ja pierdole", for: .normal)
+        goCandidate.layer.borderWidth = 2.0
+        goCandidate.layer.borderColor = Colors.twitterBlue.cgColor
+        goCandidate.layer.cornerRadius = goCandidate.frame.size.height/2
+//        if goCandidate.currentTitle == "true" {
+//        goCandidate.setTitle("YOU ARE A CANDIDATE", for: .normal)
+//        } else {
+//            goCandidate.setTitle("BECOME A CANDIDATE", for: .normal)
+//
+//        }
+        goCandidate.setTitleColor(Colors.twitterBlue, for: .normal)
+    }
+    
+    func hide(textField: Bool, label: Bool) {
+        surnameTextField.isHidden = textField
+        emailTextField.isHidden = textField
+        descTextField.isHidden = textField
+        firstNameLabel.isHidden = label
+        lastNameLabel.isHidden = label
+        ageLabel.isHidden = label
+        emailLabel.isHidden = label
+        peselLabel.isHidden = label
+    }
+    
+    @IBAction func editLastName(_ sender: Any) {
+        lastNameLabel.isHidden = true
+        surnameTextField.isHidden = false
+        if editLastNameButton.currentTitle == "Edit" {
+        putMethod(parameters: ["surname": surnameTextField.text])
+        loadMemberAvatar()
+        loadMemberProfile()
+        lastNameLabel.isHidden = false
+        surnameTextField.isHidden = true
+        }
+    }
+    
+    @IBAction func editEmail(_ sender: Any) {
+        emailLabel.isHidden = true
+        emailTextField.isHidden = false
+        if editEmailButton.currentTitle == "Edit" {
+        putMethod(parameters: ["email": emailTextField.text])
+        loadMemberAvatar()
+        loadMemberProfile()
+        emailLabel.isHidden = false
+        emailTextField.isHidden = true
+    }
+    }
+    
+    @IBAction func editDesc(_ sender: Any) {
+        descTextField.isHidden = false
+        if editDescButton.currentTitle == "Edit" {
+        putMethod(parameters: ["desc": descTextField.text])
+        loadMemberAvatar()
+        loadMemberProfile()
+        descTextField.isHidden = true
+
+        }
+        
     }
     
     
     @IBAction func goCandidateButtonTapped(_ sender: Any) {
         
+        if descTextView.text == "moj desc" {
+            displayMessage(userMessage: "You have to add description")
+            return
+        } else {
         //declare parameter as a dictionary which contains string as key and value combination. considering inputs are valid
         
         let parameters = ["candidate":true]
-
         let userId: String? = KeychainWrapper.standard.string(forKey: "userId")
+
         //create the url with URL
         let url = URL(string: "http://localhost:3000/users/\(userId!)") //change the url
         
@@ -55,20 +126,47 @@ class SettingsViewController: UIViewController {
                 print("error=\(String(describing: error))")
                 return
             }
-            
-            
         }
-        
         task.resume()
+        }
+        loadMemberProfile()
     }
     
-    
-
-
-    
-    
-
-
+    func putMethod(parameters: Any) {
+        
+        let parameters = parameters
+        let userId: String? = KeychainWrapper.standard.string(forKey: "userId")
+        
+        //create the url with URL
+        let url = URL(string: "http://localhost:3000/users/\(userId!)") //change the url
+        
+        //create the session object
+        //now create the URLRequest object using the url object
+        var request = URLRequest(url: url!)
+        request.httpMethod = "PUT" //set http method as POST
+        request.addValue("application/json", forHTTPHeaderField: "content-type")
+        request.addValue("application/json", forHTTPHeaderField: "Accept")
+        do {
+            request.httpBody = try JSONSerialization.data(withJSONObject: parameters, options: .prettyPrinted)
+        } catch let error {
+            print(error.localizedDescription)
+            displayMessage(userMessage: "Something went wrong. Try again")
+            return
+        }
+        
+        
+        //create dataTask using the session object to send data to the server
+        let task = URLSession.shared.dataTask(with: request) {(data: Data?, response: URLResponse?, error: Error?) in
+            
+            if error != nil
+            {
+                self.displayMessage(userMessage: "Could not successfully perform this request. Please try again later")
+                print("error=\(String(describing: error))")
+                return
+            }
+        }
+        task.resume()
+    }
 
     func loadMemberAvatar()
     {
@@ -98,7 +196,6 @@ class SettingsViewController: UIViewController {
                             self.avatarImage.clipsToBounds = true
                             self.avatarImage.layer.borderColor = UIColor.darkGray.cgColor
                             self.avatarImage.layer.borderWidth = 6
-
                     }
 
         }
@@ -139,15 +236,23 @@ class SettingsViewController: UIViewController {
                             let pesel: String? = parseJSON["pesel"] as? String
                             let email: String? = parseJSON["email"] as? String
                             let desc: String? = parseJSON["desc"] as? String
+                            let candidate: Bool? = parseJSON["candidate"] as? Bool
 
-                            if firstName?.isEmpty != true && lastName?.isEmpty != true && pesel?.isEmpty != true {
+
+                            if firstName?.isEmpty != true && lastName?.isEmpty != true && pesel?.isEmpty != true && email?.isEmpty != true  {
                                 self.firstNameLabel.text =  firstName!
                                 self.lastNameLabel.text =  lastName!
                                 self.ageLabel.text = String(age!)
                                 self.peselLabel.text = pesel!
                                 self.emailLabel.text = email!
                                 self.descTextView.text = desc!
+                                if candidate! == false {
+                                    self.goCandidate.setTitle("BECOME A CANDIDATE", for: .normal)
+                                } else {
+                                    self.goCandidate.setTitle("YOU ARE A CANDIDATE", for: .normal)
+                                    self.goCandidate.isEnabled = false
 
+                                }
                             }
                     }
                 } else {
@@ -165,6 +270,10 @@ class SettingsViewController: UIViewController {
         task.resume()
         
     }
+    
+    
+    
+    
     
     func displayMessage(userMessage:String) -> Void {
         DispatchQueue.main.async

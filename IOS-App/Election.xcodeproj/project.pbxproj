@@ -10,7 +10,6 @@
 		2400EAC1B3F4DF317FF573AA /* Pods_ElectionTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 01118808A0DE59FEDF97DAF0 /* Pods_ElectionTests.framework */; };
 		5A76EFAF082F4DAF7E69E1E0 /* Pods_ElectionUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 94CC303A8F47019D7C2ACE97 /* Pods_ElectionUITests.framework */; };
 		A9320A0621C2E550005A23B7 /* ListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9320A0521C2E550005A23B7 /* ListCell.swift */; };
-		A9320A0A21C2EBBB005A23B7 /* Candidate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9320A0921C2EBBB005A23B7 /* Candidate.swift */; };
 		A9355DE021E8CA0B006A5794 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9355DDF21E8CA0B006A5794 /* SettingsViewController.swift */; };
 		A97CCA1B217891E400D8B311 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A97CCA1A217891E400D8B311 /* AppDelegate.swift */; };
 		A97CCA20217891E400D8B311 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A97CCA1E217891E400D8B311 /* Main.storyboard */; };
@@ -21,6 +20,9 @@
 		A97CCA49217A0D8600D8B311 /* SignInViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A97CCA48217A0D8600D8B311 /* SignInViewController.swift */; };
 		A97CCA4B217A222100D8B311 /* RegisterUserViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A97CCA4A217A222100D8B311 /* RegisterUserViewController.swift */; };
 		A97CCA4D217A2D2300D8B311 /* HomePageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A97CCA4C217A2D2300D8B311 /* HomePageViewController.swift */; };
+		A9CBC63D21F6308B0096030A /* Candidate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9CBC63C21F6308B0096030A /* Candidate.swift */; };
+		A9CBC64521F7A7A10096030A /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9CBC64421F7A7A10096030A /* Constants.swift */; };
+		A9CBC64721F7A80F0096030A /* EditSettButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9CBC64621F7A80F0096030A /* EditSettButton.swift */; };
 		A9E0595E21CAC5180002D706 /* UserProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9E0595D21CAC5180002D706 /* UserProfileViewController.swift */; };
 		EEB7E6201925E837B7007602 /* Pods_Election.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EA557E4E35176EC9B42E2A73 /* Pods_Election.framework */; };
 /* End PBXBuildFile section */
@@ -49,7 +51,6 @@
 		8CA43F77C7245061F71AC54B /* Pods-ElectionTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ElectionTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-ElectionTests/Pods-ElectionTests.debug.xcconfig"; sourceTree = "<group>"; };
 		94CC303A8F47019D7C2ACE97 /* Pods_ElectionUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ElectionUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		A9320A0521C2E550005A23B7 /* ListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListCell.swift; sourceTree = "<group>"; };
-		A9320A0921C2EBBB005A23B7 /* Candidate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Candidate.swift; sourceTree = "<group>"; };
 		A9355DDF21E8CA0B006A5794 /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		A97CCA17217891E400D8B311 /* Election.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Election.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A97CCA1A217891E400D8B311 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -66,6 +67,9 @@
 		A97CCA48217A0D8600D8B311 /* SignInViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInViewController.swift; sourceTree = "<group>"; };
 		A97CCA4A217A222100D8B311 /* RegisterUserViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterUserViewController.swift; sourceTree = "<group>"; };
 		A97CCA4C217A2D2300D8B311 /* HomePageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomePageViewController.swift; sourceTree = "<group>"; };
+		A9CBC63C21F6308B0096030A /* Candidate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Candidate.swift; sourceTree = "<group>"; };
+		A9CBC64421F7A7A10096030A /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
+		A9CBC64621F7A80F0096030A /* EditSettButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditSettButton.swift; sourceTree = "<group>"; };
 		A9E0595D21CAC5180002D706 /* UserProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfileViewController.swift; sourceTree = "<group>"; };
 		CE81DF95C6200CAF2B087840 /* Pods-Election.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Election.release.xcconfig"; path = "Pods/Target Support Files/Pods-Election/Pods-Election.release.xcconfig"; sourceTree = "<group>"; };
 		D0F9CF2B6BD83BA60B53F2FB /* Pods-Election.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Election.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Election/Pods-Election.debug.xcconfig"; sourceTree = "<group>"; };
@@ -156,11 +160,13 @@
 				A9E0595D21CAC5180002D706 /* UserProfileViewController.swift */,
 				A9355DDF21E8CA0B006A5794 /* SettingsViewController.swift */,
 				A9320A0521C2E550005A23B7 /* ListCell.swift */,
-				A9320A0921C2EBBB005A23B7 /* Candidate.swift */,
 				A97CCA1E217891E400D8B311 /* Main.storyboard */,
 				A97CCA21217891E500D8B311 /* Assets.xcassets */,
 				A97CCA23217891E500D8B311 /* LaunchScreen.storyboard */,
 				A97CCA26217891E500D8B311 /* Info.plist */,
+				A9CBC63C21F6308B0096030A /* Candidate.swift */,
+				A9CBC64421F7A7A10096030A /* Constants.swift */,
+				A9CBC64621F7A80F0096030A /* EditSettButton.swift */,
 			);
 			path = Election;
 			sourceTree = "<group>";
@@ -410,13 +416,15 @@
 			buildActionMask = 2147483647;
 			files = (
 				A97CCA4B217A222100D8B311 /* RegisterUserViewController.swift in Sources */,
+				A9CBC64721F7A80F0096030A /* EditSettButton.swift in Sources */,
 				A97CCA1B217891E400D8B311 /* AppDelegate.swift in Sources */,
 				A9E0595E21CAC5180002D706 /* UserProfileViewController.swift in Sources */,
 				A97CCA4D217A2D2300D8B311 /* HomePageViewController.swift in Sources */,
-				A9320A0A21C2EBBB005A23B7 /* Candidate.swift in Sources */,
 				A9320A0621C2E550005A23B7 /* ListCell.swift in Sources */,
 				A97CCA49217A0D8600D8B311 /* SignInViewController.swift in Sources */,
 				A9355DE021E8CA0B006A5794 /* SettingsViewController.swift in Sources */,
+				A9CBC63D21F6308B0096030A /* Candidate.swift in Sources */,
+				A9CBC64521F7A7A10096030A /* Constants.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -10,10 +10,13 @@ import UIKit
 import SwiftKeychainWrapper
 
 class SignInViewController: UIViewController {
-
+    
+    
+    // Add outlet for text fields
     @IBOutlet weak var userNameTextField: UITextField!
     @IBOutlet weak var userPasswordTextField: UITextField!
     
+    // This will be done after start
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -25,6 +28,7 @@ class SignInViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
+    
     @IBAction func signInButtonTapped(_ sender: Any) {
         print("Sign in button tapped")
         
@@ -35,7 +39,7 @@ class SignInViewController: UIViewController {
         // Check if required fields are not empty
         if (userName?.isEmpty)! || (userPassword?.isEmpty)!
         {
-            //Display alert message here
+            // Display alert message here
             print("User name \(String(describing: userName)) or password \(String(describing: userPassword)) is empty")
             displayMessage(userMessage: "One of the required fields is missing")
             return
@@ -139,15 +143,6 @@ class SignInViewController: UIViewController {
                 
         }
         task.resume()
-        
-        
-        
-        
-        
-        
-        
-        
-        
     }
     
     @IBAction func registerNewAccountButtonTapped(_ sender: Any) {
