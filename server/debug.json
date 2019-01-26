@@ -1,0 +1,9 @@
+{
+
+    "env": {
+      "DEBUG":"*",
+      "NODE_ENV": "development",
+      "MONGOURI":"mongodb://PresentationUser:qT71yJEZ1VxVPNBf@devcluster-shard-00-00-isjwh.mongodb.net:27017,devcluster-shard-00-01-isjwh.mongodb.net:27017,devcluster-shard-00-02-isjwh.mongodb.net:27017/test?ssl=true&replicaSet=DevCluster-shard-0&authSource=admin&retryWrites=true"
+    }
+
+  }
