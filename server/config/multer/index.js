@@ -1,10 +1,12 @@
 const multer = require('multer');
 const path   = require('path');
+const debug = require('debug')('multer');
 
 /** Storage Engine */
 const storageEngine = multer.diskStorage({
   destination: './public',
   filename: function(req, file, fn){
+    debug("Received File: "+file.fieldname+path.extname(file.originalname))
     fn(null,  new Date().getTime().toString()+'-'+file.fieldname+path.extname(file.originalname));
   }
 }); 
