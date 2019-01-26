@@ -1,7 +1,7 @@
 import UIKit
 import SwiftKeychainWrapper
 
-class SettingsViewController: UIViewController {
+class SettingsViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate, URLSessionDelegate, URLSessionTaskDelegate, URLSessionDataDelegate {
 
     
     @IBOutlet weak var firstNameLabel: UILabel!
@@ -18,27 +18,83 @@ class SettingsViewController: UIViewController {
     @IBOutlet weak var surnameTextField: UITextField!
     @IBOutlet weak var emailTextField: UITextField!
     @IBOutlet weak var descTextField: UITextField!
+    @IBOutlet weak var addAvatarButton: UIButton!
     
-
+    var imagePicker = UIImagePickerController()
 
     override func viewDidLoad() {
         super.viewDidLoad()
         hide(textField: true, label: false)
         loadMemberAvatar()
         loadMemberProfile()
-        
-  //      goCandidate.setTitle("ja pierdole", for: .normal)
         goCandidate.layer.borderWidth = 2.0
         goCandidate.layer.borderColor = Colors.twitterBlue.cgColor
         goCandidate.layer.cornerRadius = goCandidate.frame.size.height/2
-//        if goCandidate.currentTitle == "true" {
-//        goCandidate.setTitle("YOU ARE A CANDIDATE", for: .normal)
-//        } else {
-//            goCandidate.setTitle("BECOME A CANDIDATE", for: .normal)
-//
-//        }
         goCandidate.setTitleColor(Colors.twitterBlue, for: .normal)
+
     }
+
+    @IBAction func addAvatarButtonTapped(_ sender: Any) {
+        var myPickerController = UIImagePickerController()
+        myPickerController.delegate = self;
+        myPickerController.sourceType = UIImagePickerControllerSourceType.photoLibrary
+        self.present(myPickerController, animated: true, completion: nil)
+    }
+    
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
+        avatarImage.image = info[UIImagePickerControllerOriginalImage] as? UIImage
+        avatarImage.backgroundColor = UIColor.clear
+        self.dismiss(animated: true, completion: nil)
+        
+        uploadImage()
+    }
+    
+    func uploadImage() {
+        let image = UIImageJPEGRepresentation(avatarImage.image!, 1)
+        if image == nil { return }
+        let boundary = UUID().uuidString
+        
+        self.addAvatarButton.isEnabled = false
+        
+        let userId: String? = KeychainWrapper.standard.string(forKey: "userId")
+        let uploadScriptUrl = NSURL(string: "http://localhost:3000/images/avatar/\(userId!)")
+        let request = NSMutableURLRequest(url: uploadScriptUrl! as URL)
+        request.httpMethod = "POST"
+        request.setValue("multipart/form-data; boundary=\(boundary)", forHTTPHeaderField: "Content-Type")
+        
+        let configuration = URLSessionConfiguration.default
+        let session = URLSession(configuration: configuration, delegate: self, delegateQueue: OperationQueue.main)
+        
+        let task = session.uploadTask(with: request as URLRequest, from: image!)
+        task.resume()
+    }
+    
+     func urlSession(_ session: URLSession, task: URLSessionTask, didCompleteWithError error: Error?) {
+        let myAlert = UIAlertController(title: "Alert", message: error as? String, preferredStyle: .alert)
+        myAlert.addAction(UIAlertAction(title: "OK", style: .default, handler: { action in
+            switch action.style{
+            case .default:
+                print("default")
+                
+            case .cancel:
+                print("cancel")
+                
+            case .destructive:
+                print("destructive")
+                
+                
+            }}))
+        self.present(myAlert, animated: true, completion: nil)
+        self.addAvatarButton.isEnabled = true
+
+    }
+    
+    public func urlSession(_ session: URLSession, dataTask: URLSessionDataTask, didReceive response: URLResponse, completionHandler: @escaping (URLSession.ResponseDisposition) -> Void) {
+        self.addAvatarButton.isEnabled = true
+    }
+
+    
+    
     
     func hide(textField: Bool, label: Bool) {
         surnameTextField.isHidden = textField
@@ -202,6 +258,9 @@ class SettingsViewController: UIViewController {
         task.resume()
 
     }
+
+    
+
     
     func loadMemberProfile()
     {
@@ -290,3 +349,5 @@ class SettingsViewController: UIViewController {
     }
     
 }
+
+

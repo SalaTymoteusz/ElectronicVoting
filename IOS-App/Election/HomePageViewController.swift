@@ -12,15 +12,18 @@ import SwiftKeychainWrapper
 
 class HomePageViewController: UIViewController {
     
-
+    @IBOutlet weak var sumOfVotes: UILabel!
     @IBOutlet weak var dateLabelOutlet: UILabel!
     @IBOutlet weak var tableView: UITableView!
     var courses = [Course]()
-    var endOfVoting = "2019-01-11"
+    var courses2 = [Course]()
+    var endOfVoting = "2019-01-30"
+    var allVotes = ""
     
     override func viewDidLoad() {
         super.viewDidLoad()
         fetchJSON()
+    //    ile()
         tableView.delegate = self as UITableViewDelegate
         tableView.dataSource = self as UITableViewDataSource
         untilDate(date: endOfVoting)
@@ -46,12 +49,37 @@ class HomePageViewController: UIViewController {
         let futureDateFormated : Date? = dateFormatter.date(from: futureDate)
         let difference = currentDate.timeIntervalSince(futureDateFormated!)
         let differenceInDays = Int(difference/(60 * 60 * 24)*(-1)+1)
-        dateLabelOutlet.text = "Do końca pozostało " + String(differenceInDays) + " Dni"
+        dateLabelOutlet.text = "  Zostało:\(String(differenceInDays)) dni"
     }
     
     
-    
-    
+    fileprivate func ile() {
+        let urlString = "http://localhost:3000/users/?gaveVote=true"
+        let url = URL(string: urlString)
+        URLSession.shared.dataTask(with: url!) { (data, _, err) in
+            DispatchQueue.main.async {
+                if let err = err {
+                    print("Failed to get data from url:", err)
+                    return
+                }
+
+                guard let data = data else { return }
+
+                do {
+                    // link in description for video on JSONDecoder
+                    let decoder = JSONDecoder()
+                    // Swift 4.1
+                    decoder.keyDecodingStrategy = .convertFromSnakeCase
+                    self.courses2 = try decoder.decode([Course].self, from: data)
+                    self.tableView.reloadData()
+                    self.sumOfVotes.text = String(self.courses2.count)
+                } catch let jsonErr {
+                    print("Failed to decode:", jsonErr)
+                }
+            }
+            }.resume()
+    }
+
     
     fileprivate func fetchJSON() {
         let urlString = "http://localhost:3000/users/?candidate=true"
@@ -107,6 +135,7 @@ extension HomePageViewController: UITableViewDataSource, UITableViewDelegate {
         vc?.votesLabel = String(courses[indexPath.row].votes)
         vc?.ageLabel = String(courses[indexPath.row].age)
         vc?.myStoryLabel = courses[indexPath.row].desc
+        vc?.candidateId = courses[indexPath.row]._id
         self.present(vc!, animated:true, completion:nil)
     }
     
