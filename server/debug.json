@@ -1,5 +1,4 @@
 {
-
     "env": {
       "DEBUG":"*",
       "NODE_ENV": "development",

@@ -12,6 +12,7 @@ function removeFile(file) {
     debug("File deleted: " + file.path);
 }
 exports.createAvatar = async (req, res) => {
+    console.log(req.file);
     //TODO: user Authentication
     //upload file to server
     await upload(req, res, async (error) => {
@@ -22,7 +23,7 @@ exports.createAvatar = async (req, res) => {
             } else {
                 // if file dont exist throw error
                 if (req.file == undefined) {
-                    throw new ResponseWithError(400, "User Not Found");
+                    throw new ResponseWithError(400, "File Not Found");
                 }
                 // search for user
                 let user = await User.findById(req.params.id);
