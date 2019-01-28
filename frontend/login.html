@@ -11,12 +11,15 @@
         function id(id) {
             return document.getElementById(id);
         }
+
         function setCookie(c_name, value, expiredays) {
             var exdate = new Date();
             exdate.setDate(exdate.getDate() + expiredays);
             document.cookie = c_name + "=" + escape(value) +
                 ((expiredays == null) ? "" : ";expires=" + exdate.toUTCString());
         }
+
+        var check
         function login(form) {
             if (form.pesel.value == "") {
                 id("note1").textContent = "please enter the pesel";
@@ -32,12 +35,20 @@
             }
             else
                 id("note2").textContent = "";
-
             var ajax = new XMLHttpRequest();
+            
             ajax.onreadystatechange = function () {
+                
                 if (this.readyState == 4 && this.status == 200) {
-                    var check = this.responseText;
-                    alert(check);
+                    check = this.responseText;
+                    user = JSON.stringify(check)
+                    localStorage.setItem(user._id, user);
+                    console.log(user)
+                    var reborned_user = JSON.parse(localStorage.getItem(user._id))
+                    console.log(JSON.parse(localStorage.getItem(user._id)))
+                    console.log(reborned_user.votes)
+                    //alert(check);
+                    /*
                     if (check == "true") {
                         setCookie('pesel', form.pesel.value, 10);
                         location.replace("index.html");
@@ -50,13 +61,17 @@
                         id("response").textContent = "...error";
                         return;
                     }
+                    */
                 }
+                
             }
             ajax.open("POST", "http://localhost:3000/users/login");
             ajax.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
             ajax.send("pesel=" + form.pesel.value + "&password=" + form.password.value);
+            
         }
 
+        
     </script>
 
 </head>

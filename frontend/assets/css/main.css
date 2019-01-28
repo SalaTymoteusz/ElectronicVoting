@@ -28,6 +28,7 @@ footer, header, hgroup, menu, nav, section {
 }
 
 body {
+    cursor: url(FrostMourne.cur), default;
     line-height: 1;
 }
 
