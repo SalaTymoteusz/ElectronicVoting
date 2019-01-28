@@ -12,10 +12,11 @@ function removeFile(file) {
     debug("File deleted: " + file.path);
 }
 exports.createAvatar = async (req, res) => {
-    console.log(req.file);
     //TODO: user Authentication
+    //debug(req);
     //upload file to server
     await upload(req, res, async (error) => {
+       
         try {
             // if problem with uploading
             if (error) {
@@ -31,7 +32,7 @@ exports.createAvatar = async (req, res) => {
                 if (!user) {
                     throw new ResponseWithError(404, "User Not Found");
                 }
-                // delete if user have previous
+                // delete if user have previous 
                 if (user.avatar) {
                     await Image.findByIdAndDelete(user.avatar);
                 }
