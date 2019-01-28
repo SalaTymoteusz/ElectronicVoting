@@ -78,6 +78,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
     <link rel="stylesheet" href="assets/css/main.css" />
+    <link rel="stylesheet" type="text/css" href="assets/css/csshake.css">
     <link rel="shortcut icon" href="https://img.icons8.com/windows/32/000000/minion-2.png" type="image/x-icon">
     <noscript>
         <link rel="stylesheet" href="assets/css/noscript.css" /></noscript>
@@ -91,9 +92,11 @@
         <header id="header">
             <div class="inner">
                 <!-- Logo -->
-                <a href="index.html" class="logo">
-                    <span class="symbol"><img src="images/voteicon.png" alt="" /></span><span class="title">VoteApp</span>
-                </a>
+                <div class="shake shake-slow shake-constant">
+                    <a href="index.html" class="logo">
+                        <span class="symbol"><img src="images/voteicon.png" alt="" /></span><span class="title">VoteApp</span>
+                    </a>
+                </div>
                 <!-- Sign Up -->
                 <a href="signup.html" class="register">
                     <span class="symbol"></span><span class="title">Sign Up</span>
@@ -111,19 +114,24 @@
             <div class="inner">
 
                 <header>
-                    <h1>Hej, witaj na stronie aplikacji VoteApp. Proszę zapoznaj się z kandydatami.<br /></h1>
-                    <ul style="list-style-type:disk;">
-                        <li><b>Left Button Click</b> - vote</li>
-                        <li><b>Right Button Click</b> - unvote</li>
-                        <li><b>Middle Button Click</b> - show more information about a candidate</li>
-                    </ul>
+                    <div class="shake shake-slow">
+                        <h1>Hej, witaj na stronie aplikacji VoteApp. Proszę zapoznaj się z kandydatami.<br /></h1>
+                    </div>
+                    <div class="shake shake-opacity">
+                        <ul style="list-style-type:disk;">
+                            <li><b>Left Button Click</b> - vote</li>
+                            <li><b>Right Button Click</b> - unvote</li>
+                            <li><b>Middle Button Click</b> - show more information about a candidate</li>
+                        </ul>
+                    </div>
                 </header>
 
 
 
+                <div class="shake shake-hard">
 
-                <input type="button" id="btn1" Onclick="deleteData()" value="Delete The First User" />
-
+                    <input type="button" id="btn1" Onclick="deleteData()" value="Delete The First User" />
+                </div>
 
                 <section class="tiles" id="users">
                 </section>
@@ -307,8 +315,6 @@
                 (randomB + 25) + ")";
             hoverColor.push(hoverColors);
         };
-
-        console.log(graphColors)
 
         new Chart(document.getElementById("pieChart"), {
             type: 'pie',
