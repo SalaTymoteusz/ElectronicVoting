@@ -25,72 +25,78 @@ class SettingsViewController: UIViewController, UIImagePickerControllerDelegate,
     override func viewDidLoad() {
         super.viewDidLoad()
         hide(textField: true, label: false)
-        loadMemberAvatar()
         loadMemberProfile()
         goCandidate.layer.borderWidth = 2.0
         goCandidate.layer.borderColor = Colors.twitterBlue.cgColor
         goCandidate.layer.cornerRadius = goCandidate.frame.size.height/2
         goCandidate.setTitleColor(Colors.twitterBlue, for: .normal)
+        loadMemberAvatar()
 
     }
 
     @IBAction func addAvatarButtonTapped(_ sender: Any) {
-        var myPickerController = UIImagePickerController()
+        let myPickerController = UIImagePickerController()
         myPickerController.delegate = self;
         myPickerController.sourceType = UIImagePickerControllerSourceType.photoLibrary
         self.present(myPickerController, animated: true, completion: nil)
     }
     
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
-        avatarImage.image = info[UIImagePickerControllerOriginalImage] as? UIImage
+        let wybranezdj = info[UIImagePickerControllerOriginalImage] as? UIImage
+        avatarImage.image = wybranezdj
         avatarImage.backgroundColor = UIColor.clear
         self.dismiss(animated: true, completion: nil)
-        
-        uploadImage()
+   //     let doWyslania = #imageLiteral(resourceName: "german")
+        uploadImage(paramName: "image", file: wybranezdj!)
     }
     
-    func uploadImage() {
-        let image = UIImageJPEGRepresentation(avatarImage.image!, 1)
-        if image == nil { return }
-        let boundary = UUID().uuidString
-        
-        self.addAvatarButton.isEnabled = false
+    func uploadImage(paramName: String, file: UIImage) {
+        let imageData = UIImagePNGRepresentation(file)
         
         let userId: String? = KeychainWrapper.standard.string(forKey: "userId")
-        let uploadScriptUrl = NSURL(string: "http://localhost:3000/images/avatar/\(userId!)")
-        let request = NSMutableURLRequest(url: uploadScriptUrl! as URL)
-        request.httpMethod = "POST"
-        request.setValue("multipart/form-data; boundary=\(boundary)", forHTTPHeaderField: "Content-Type")
+        let url = URL(string: "http://localhost:3000/Images/avatar/\(userId!)")
         
-        let configuration = URLSessionConfiguration.default
-        let session = URLSession(configuration: configuration, delegate: self, delegateQueue: OperationQueue.main)
+        // generate boundary string using a unique per-app string
+        let boundary = UUID().uuidString
+        let session = URLSession.shared
         
-        let task = session.uploadTask(with: request as URLRequest, from: image!)
-        task.resume()
-    }
-    
-     func urlSession(_ session: URLSession, task: URLSessionTask, didCompleteWithError error: Error?) {
-        let myAlert = UIAlertController(title: "Alert", message: error as? String, preferredStyle: .alert)
-        myAlert.addAction(UIAlertAction(title: "OK", style: .default, handler: { action in
-            switch action.style{
-            case .default:
-                print("default")
-                
-            case .cancel:
-                print("cancel")
-                
-            case .destructive:
-                print("destructive")
-                
-                
-            }}))
-        self.present(myAlert, animated: true, completion: nil)
-        self.addAvatarButton.isEnabled = true
+        // Set the URLRequest to POST and to the specified URL
+        var urlRequest = URLRequest(url: url!)
+        urlRequest.httpMethod = "POST"
+        
+        // Set Content-Type Header to multipart/form-data, this is equivalent to submitting form data with file upload in a web browser
+        // And the boundary is also set here
+        urlRequest.setValue("multipart/form-data; boundary=\(boundary)", forHTTPHeaderField: "Content-Type")
+        var data = Data()
 
-    }
-    
-    public func urlSession(_ session: URLSession, dataTask: URLSessionDataTask, didReceive response: URLResponse, completionHandler: @escaping (URLSession.ResponseDisposition) -> Void) {
-        self.addAvatarButton.isEnabled = true
+            let lineBreaker = "\r\n"
+            let mineType = "image/jpeg"
+            
+                data.append("--\(boundary + lineBreaker)".data(using: .utf8)!)
+                data.append("Content-Disposition: form-data; name=\"\(paramName)\"\(lineBreaker + lineBreaker)".data(using: .utf8)!)
+                data.append(("\(data)" + "\(lineBreaker)").data(using: .utf8)!)
+        
+        
+                data.append("--\(boundary + lineBreaker)".data(using: .utf8)!)
+                data.append("Content-Disposition: form-data; name=\"\(paramName)\";filename=\"\(arc4random()).jpeg\"\(lineBreaker)".data(using: .utf8)!)
+                data.append("Content-Type: \(mineType + lineBreaker + lineBreaker)".data(using: .utf8)!)
+                data.append(imageData!)
+                data.append(lineBreaker.data(using: .utf8)!)
+                data.append("--\(boundary)--\(lineBreaker)".data(using: .utf8)!)
+            
+   
+        urlRequest.httpBody = data
+
+        // Send a POST request to the URL, with the data we created earlier
+        session.uploadTask(with: urlRequest, from: data, completionHandler: { responseData, response, error in
+            if response != nil { self.loadMemberAvatar()}
+            if error == nil {
+                let jsonData = try? JSONSerialization.jsonObject(with: responseData!, options: .allowFragments)
+                if let json = jsonData as? [String: Any] {
+                    print(json)
+                }
+            }
+        }).resume()
     }
 
     

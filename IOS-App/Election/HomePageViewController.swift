@@ -12,23 +12,19 @@ import SwiftKeychainWrapper
 
 class HomePageViewController: UIViewController {
     
-    @IBOutlet weak var sumOfVotes: UILabel!
     @IBOutlet weak var dateLabelOutlet: UILabel!
     @IBOutlet weak var tableView: UITableView!
     var courses = [Course]()
-    var courses2 = [Course]()
     var endOfVoting = "2019-01-30"
-    var allVotes = ""
     
     override func viewDidLoad() {
         super.viewDidLoad()
         fetchJSON()
-    //    ile()
         tableView.delegate = self as UITableViewDelegate
         tableView.dataSource = self as UITableViewDataSource
         untilDate(date: endOfVoting)
     }
-    
+ 
 
     @IBAction func signOut(_ sender: Any) {
         KeychainWrapper.standard.removeObject(forKey: "accessToken")
@@ -52,36 +48,9 @@ class HomePageViewController: UIViewController {
         dateLabelOutlet.text = "  Zostało:\(String(differenceInDays)) dni"
     }
     
-    
-    fileprivate func ile() {
-        let urlString = "http://localhost:3000/users/?gaveVote=true"
-        let url = URL(string: urlString)
-        URLSession.shared.dataTask(with: url!) { (data, _, err) in
-            DispatchQueue.main.async {
-                if let err = err {
-                    print("Failed to get data from url:", err)
-                    return
-                }
-
-                guard let data = data else { return }
-
-                do {
-                    // link in description for video on JSONDecoder
-                    let decoder = JSONDecoder()
-                    // Swift 4.1
-                    decoder.keyDecodingStrategy = .convertFromSnakeCase
-                    self.courses2 = try decoder.decode([Course].self, from: data)
-                    self.tableView.reloadData()
-                    self.sumOfVotes.text = String(self.courses2.count)
-                } catch let jsonErr {
-                    print("Failed to decode:", jsonErr)
-                }
-            }
-            }.resume()
-    }
 
     
-    fileprivate func fetchJSON() {
+     func fetchJSON() {
         let urlString = "http://localhost:3000/users/?candidate=true"
         guard let url = URL(string: urlString) else { return }
         URLSession.shared.dataTask(with: url) { (data, _, err) in
@@ -127,6 +96,7 @@ extension HomePageViewController: UITableViewDataSource, UITableViewDelegate {
         return cell
 }
 
+    
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let vc = storyboard?.instantiateViewController(withIdentifier: "UserProfileViewController") as? UserProfileViewController
         vc?.avatarId = courses[indexPath.row]._id

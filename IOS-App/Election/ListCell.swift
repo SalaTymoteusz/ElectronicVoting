@@ -7,20 +7,56 @@
 //
 import UIKit
 
-class ListCell: UITableViewCell {
+class ListCell: UITableViewCell{
     
     @IBOutlet weak var listImageView: UIImageView!
     @IBOutlet weak var listVotesLabel: UILabel!
     @IBOutlet weak var listTitleLabel: UILabel!
     @IBOutlet weak var listPercentLabel: UILabel!
     
+    var courses = [Course]()
+
+    
     func setCandidate(candidate: Course) {
         listTitleLabel.text = candidate.name
-        listPercentLabel.text = String(candidate.votes / 10)
         listVotesLabel.text = String(candidate.votes)
-        
-
+        loadAllVotes(votes: Double(candidate.votes))
     }
+    
+    func loadAllVotes(votes: Double) {
+        let urlString = "http://localhost:3000/users/?gaveVote=true"
+        let url = URL(string: urlString)
+        URLSession.shared.dataTask(with: url!) { (data, _, err) in
+            DispatchQueue.main.async {
+                if let err = err {
+                    print("Failed to get data from url:", err)
+                    return
+                }
+                
+                guard let data = data else { return }
+                
+                do {
+                    // link in description for video on JSONDecoder
+                    let decoder = JSONDecoder()
+                    // Swift 4.1
+                    decoder.keyDecodingStrategy = .convertFromSnakeCase
+                    self.courses = try decoder.decode([Course].self, from: data)
+                    print("ile1: \(self.courses.count)")
+                    if self.courses.count == 0 {
+                        self.listPercentLabel.text = String(votes / 1)
+                    } else {
+                        print("ile: \(self.courses.count)")
+                        self.listPercentLabel.text = String((votes / Double(self.courses.count)) * 100 )
+                        print(self.listPercentLabel.text!)
+                    }
+                } catch let jsonErr {
+                    print("Failed to decode:", jsonErr)
+                }
+            }
+            }.resume()
+    }
+    
+    
     
     
     func loadMemberAvatar(userId: String)
