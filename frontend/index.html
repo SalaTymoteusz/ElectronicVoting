@@ -139,6 +139,8 @@
 
                 <canvas id="lineChart"></canvas>
 
+                <canvas id="pieChart"></canvas>
+
                 <ul class="copyright">
                     <li>&copy; VoteApp. All rights reserved 2019</li>
                     <li>Design: Barack Obama</li>
@@ -262,18 +264,66 @@
 
         document.getElementById("users").innerHTML = markup;
 
-        var ctx = document.getElementById('lineChart').getContext('2d');
+
 
         var usersAges = [];
         var numberOfVotes = [];
         var usersNames = [];
+        var theLastPeselNumber = [];
 
         for (i = 0; i < jsonObject.length; i++) {
             usersAges.push(jsonObject[i].age)
             usersNames.push(jsonObject[i].name + " " + jsonObject[i].surname)
             numberOfVotes.push(jsonObject[i].votes)
-
+            theLastPeselNumber.push(jsonObject[i].pesel[jsonObject[i].pesel.length - 1])
         }
+
+        var graphColors = [];
+        var graphOutlines = [];
+        var hoverColor = [];
+
+        for (i = 0; i < jsonObject.length; i++) {
+            var randomR = Math.floor((Math.random() * 130) + 100);
+            var randomG = Math.floor((Math.random() * 130) + 100);
+            var randomB = Math.floor((Math.random() * 130) + 100);
+
+            var graphBackground = "rgb(" +
+                randomR + ", " +
+                randomG + ", " +
+                randomB + ")";
+            graphColors.push(graphBackground);
+
+            var graphOutline = "rgb(" +
+                (randomR - 80) + ", " +
+                (randomG - 80) + ", " +
+                (randomB - 80) + ")";
+            graphOutlines.push(graphOutline);
+
+            var hoverColors = "rgb(" +
+                (randomR + 25) + ", " +
+                (randomG + 25) + ", " +
+                (randomB + 25) + ")";
+            hoverColor.push(hoverColors);
+        };
+
+        console.log(graphColors)
+
+        new Chart(document.getElementById("pieChart"), {
+            type: 'pie',
+            data: {
+                labels: usersNames,
+                datasets: [{
+                    label: "Votes",
+                    backgroundColor: graphColors,
+                    hoverBackgroundColor: hoverColor,
+                    borderColor: graphOutlines,
+                    data: numberOfVotes
+                }]
+            },
+            options: {}
+        });
+
+        var ctx = document.getElementById('lineChart').getContext('2d');
 
         var chart = new Chart(ctx, {
             // The type of chart we want to create
@@ -284,15 +334,21 @@
                 labels: usersNames,
                 datasets: [{
                         label: "Votes",
-                        backgroundColor: 'rgb(55, 99, 132, 0.6)',
-                        borderColor: 'rgb(155, 99, 132, 0.6)',
+                        backgroundColor: 'rgb(55, 99, 132, 0.7)',
+                        borderColor: 'rgb(155, 99, 132, 06)',
                         data: numberOfVotes,
                     },
                     {
                         label: "Age",
-                        backgroundColor: 'rgb(155, 9, 132)',
-                        borderColor: 'rgb(55, 9, 132)',
+                        backgroundColor: 'rgb(155, 9, 132, 0.4)',
+                        borderColor: 'rgb(55, 9, 132, 0.4)',
                         data: usersAges,
+                    },
+                    {
+                        label: "The Last PESEL Number",
+                        backgroundColor: 'rgb(185, 9, 72)',
+                        borderColor: 'rgb(115, 39, 32)',
+                        data: theLastPeselNumber,
                     }
                 ]
             },
