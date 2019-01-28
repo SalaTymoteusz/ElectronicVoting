@@ -17,13 +17,15 @@ function sortedBy(sort){
 exports.index = async (req, res) => {
 
   let {limit,skip,sortBy,...query}=req.query;
-  sortBy=sortBy.split(',');
   let sort={};
-  if(sortBy)
-  sort={
-    [sortBy[0]]:sortedBy(sortBy[1])
+  if(sortBy){
+      sortBy=sortBy.split(',');
+      sort={
+        [sortBy[0]]:sortedBy(sortBy[1])
+      }
   }
 
+  
   try { 
     //search for users
     const data = await User.find(query).sort(sort).skip(parseInt(skip)).limit(parseInt(limit));
