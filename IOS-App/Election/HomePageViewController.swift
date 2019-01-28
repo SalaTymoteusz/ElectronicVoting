@@ -19,10 +19,9 @@ class HomePageViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        fetchJSON()
+        whoWon(untilDate: untilDate(date: endOfVoting))
         tableView.delegate = self as UITableViewDelegate
         tableView.dataSource = self as UITableViewDataSource
-        untilDate(date: endOfVoting)
     }
  
 
@@ -36,7 +35,18 @@ class HomePageViewController: UIViewController {
         
     }
     
-    func untilDate(date: String){
+    
+    func whoWon(untilDate: Int) {
+        if untilDate == 0 {
+            fetchJSON(url: "http://localhost:3000/users?candidate=true&sortBy=votes,Down&limit=1")
+            dateLabelOutlet.text = "WINNER"
+        } else {
+            fetchJSON(url: "http://localhost:3000/users/?candidate=true")
+        }
+        
+    }
+    
+    func untilDate(date: String) -> Int{
         
         let futureDate = date
         let currentDate = Date()
@@ -46,12 +56,14 @@ class HomePageViewController: UIViewController {
         let difference = currentDate.timeIntervalSince(futureDateFormated!)
         let differenceInDays = Int(difference/(60 * 60 * 24)*(-1)+1)
         dateLabelOutlet.text = "  Zostało:\(String(differenceInDays)) dni"
+        
+        return differenceInDays
     }
     
 
     
-     func fetchJSON() {
-        let urlString = "http://localhost:3000/users/?candidate=true"
+    func fetchJSON(url: String) {
+        let urlString = url
         guard let url = URL(string: urlString) else { return }
         URLSession.shared.dataTask(with: url) { (data, _, err) in
             DispatchQueue.main.async {
