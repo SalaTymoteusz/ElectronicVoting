@@ -141,6 +141,8 @@
 
                 <canvas id="pieChart"></canvas>
 
+                <canvas id="polar-chart"></canvas>
+
                 <ul class="copyright">
                     <li>&copy; VoteApp. All rights reserved 2019</li>
                     <li>Design: Barack Obama</li>
@@ -310,6 +312,21 @@
 
         new Chart(document.getElementById("pieChart"), {
             type: 'pie',
+            data: {
+                labels: usersNames,
+                datasets: [{
+                    label: "Votes",
+                    backgroundColor: graphColors,
+                    hoverBackgroundColor: hoverColor,
+                    borderColor: graphOutlines,
+                    data: numberOfVotes
+                }]
+            },
+            options: {}
+        });
+
+        new Chart(document.getElementById("polar-chart"), {
+            type: 'polarArea',
             data: {
                 labels: usersNames,
                 datasets: [{
