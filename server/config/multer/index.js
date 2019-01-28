@@ -6,9 +6,8 @@ const debug = require('debug')('multer');
 const storageEngine = multer.diskStorage({
   destination: './public',
   filename: function(req, file, fn){
-    debug("Received File: "+file.filename+path.extname(file.originalname)+" File size: "+file.size)
+    debug("Received File: "+file.originalname)
     fn(null,  new Date().getTime().toString()+'-'+file.fieldname+path.extname(file.originalname));
-    fn(new Error('I don\'t have a clue!'))
   }
 }); 
 
@@ -17,12 +16,10 @@ const storageEngine = multer.diskStorage({
 const upload =  multer({
   storage: storageEngine,
   limits:{
-    fileSize:1024*1024*10 //B->KB->MB *10
+    fileSize:1024*1024*5 //B->KB->MB *10
   },
   fileFilter: function(req, file, callback){
-    
-    validateFile(file, callback);
-    
+    validateFile(file, callback); 
   },
 
 }).single('image');
