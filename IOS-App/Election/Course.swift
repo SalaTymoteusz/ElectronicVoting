@@ -28,4 +28,5 @@ class Course: Decodable {
         case candidate, gaveVote
         case age, votes
     }
+    
 }

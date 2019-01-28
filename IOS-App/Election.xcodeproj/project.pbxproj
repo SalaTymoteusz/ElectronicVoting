@@ -24,7 +24,6 @@
 		A9CBC64521F7A7A10096030A /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9CBC64421F7A7A10096030A /* Constants.swift */; };
 		A9CBC64721F7A80F0096030A /* EditSettButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9CBC64621F7A80F0096030A /* EditSettButton.swift */; };
 		A9E0595E21CAC5180002D706 /* UserProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9E0595D21CAC5180002D706 /* UserProfileViewController.swift */; };
-		A9FD94A221F8B5410047E02D /* AllVotes.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9FD94A121F8B5410047E02D /* AllVotes.swift */; };
 		EEB7E6201925E837B7007602 /* Pods_Election.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EA557E4E35176EC9B42E2A73 /* Pods_Election.framework */; };
 /* End PBXBuildFile section */
 
@@ -72,7 +71,6 @@
 		A9CBC64421F7A7A10096030A /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		A9CBC64621F7A80F0096030A /* EditSettButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditSettButton.swift; sourceTree = "<group>"; };
 		A9E0595D21CAC5180002D706 /* UserProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfileViewController.swift; sourceTree = "<group>"; };
-		A9FD94A121F8B5410047E02D /* AllVotes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllVotes.swift; sourceTree = "<group>"; };
 		CE81DF95C6200CAF2B087840 /* Pods-Election.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Election.release.xcconfig"; path = "Pods/Target Support Files/Pods-Election/Pods-Election.release.xcconfig"; sourceTree = "<group>"; };
 		D0F9CF2B6BD83BA60B53F2FB /* Pods-Election.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Election.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Election/Pods-Election.debug.xcconfig"; sourceTree = "<group>"; };
 		D78586FF21FADF93371F3782 /* Pods-ElectionUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ElectionUITests.release.xcconfig"; path = "Pods/Target Support Files/Pods-ElectionUITests/Pods-ElectionUITests.release.xcconfig"; sourceTree = "<group>"; };
@@ -169,7 +167,6 @@
 				A9CBC63C21F6308B0096030A /* Course.swift */,
 				A9CBC64421F7A7A10096030A /* Constants.swift */,
 				A9CBC64621F7A80F0096030A /* EditSettButton.swift */,
-				A9FD94A121F8B5410047E02D /* AllVotes.swift */,
 			);
 			path = Election;
 			sourceTree = "<group>";
@@ -426,7 +423,6 @@
 				A9320A0621C2E550005A23B7 /* ListCell.swift in Sources */,
 				A97CCA49217A0D8600D8B311 /* SignInViewController.swift in Sources */,
 				A9355DE021E8CA0B006A5794 /* SettingsViewController.swift in Sources */,
-				A9FD94A221F8B5410047E02D /* AllVotes.swift in Sources */,
 				A9CBC63D21F6308B0096030A /* Course.swift in Sources */,
 				A9CBC64521F7A7A10096030A /* Constants.swift in Sources */,
 			);

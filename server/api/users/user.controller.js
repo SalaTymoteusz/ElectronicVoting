@@ -6,24 +6,29 @@ const config = require("../../config").config;
 const jsign = require('jsonwebtoken/sign');
 const ResponseWithError = require("../../helpers/errors");
 
-exports.index = async (req, res) => {
-  console.log(req.query)
-  for(let q in req.query){
-    if(req.query[q][0]=='/'){
-      req.query[q]=req.query[q].slice(1,req.query[q].length);
-      req.query[q]= new RegExp(req.query[q]);
-    }
-  }
-  console.log(req.query)
+function sortedBy(sort){
+  if(sort=="UP"||sort=="Up"||sort=="up")
+    return 1
+  if(sort=="DOWN"||sort=="Down"||sort=="down")
+    return -1;
+    return 0;
+}
 
-  // req.query.map(x=>{
-  //   if(x[0]=='/')
-  //     return new RegExp(x);
-  //   else return x;
-  // })
+exports.index = async (req, res) => {
+
+  let {limit,skip,sortBy,...query}=req.query;
+  let sort={};
+  if(sortBy){
+      sortBy=sortBy.split(',');
+      sort={
+        [sortBy[0]]:sortedBy(sortBy[1])
+      }
+  }
+
+  
   try { 
     //search for users
-    const data = await User.find(req.query)
+    const data = await User.find(query).sort(sort).skip(parseInt(skip)).limit(parseInt(limit));
     data.map(x => x.profile);
     res.header("x-count",data.length);
     res.sendSuccess(data);
