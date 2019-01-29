@@ -92,11 +92,13 @@
         <header id="header">
             <div class="inner">
                 <!-- Logo -->
+
                 <div class="shake shake-slow shake-constant">
                     <a href="index.html" class="logo">
                         <span class="symbol"><img src="images/voteicon.png" alt="" /></span><span class="title">VoteApp</span>
                     </a>
                 </div>
+
                 <!-- Sign Up -->
                 <a href="signup.html" class="register">
                     <span class="symbol"></span><span class="title">Sign Up</span>
@@ -117,6 +119,7 @@
                     <div class="shake shake-slow">
                         <h1>Hej, witaj na stronie aplikacji VoteApp. Proszę zapoznaj się z kandydatami.<br /></h1>
                     </div>
+
                     <div class="shake shake-opacity">
                         <ul style="list-style-type:disk;">
                             <li><b>Left Button Click</b> - vote</li>
@@ -124,14 +127,13 @@
                             <li><b>Middle Button Click</b> - show more information about a candidate</li>
                         </ul>
                     </div>
+
                 </header>
 
 
 
-                <div class="shake shake-hard">
 
-                    <input type="button" id="btn1" Onclick="deleteData()" value="Delete The First User" />
-                </div>
+
 
                 <section class="tiles" id="users">
                 </section>
@@ -170,11 +172,36 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.3/Chart.min.js"></script>
 
     <script>
+        $(document).ready(function () {
+            $(document).on('mouseenter', '.divbutton', function () {
+                $(this).find(":button").show();
+            }).on('mouseleave', '.divbutton', function () {
+                $(this).find(":button").hide();
+            });
+        });
+
         const url = 'http://localhost:3000/users'
         var item = "5c476f28d86a5b24bcdcd0f9"
 
         function deleteData() {
             var url = 'http://localhost:3000/users/' + jsonObject[0]._id;
+            var http = new XMLHttpRequest();
+            http.open("DELETE", url, true);
+
+            http.onload = function () {
+                var users = JSON.parse(http.responseText);
+                if (http.readyState == 4 && http.status == "200") {
+                    console.table(users);
+                } else {
+                    console.error(users);
+                }
+            }
+            http.send(null)
+            document.location.reload(true)
+        }
+
+        function deleteThisData(x) {
+            var url = 'http://localhost:3000/users/' + jsonObject[x]._id;
             var http = new XMLHttpRequest();
             http.open("DELETE", url, true);
 
@@ -246,11 +273,14 @@
         const markup =
             `
             ${Array(jsonObject.length).join(0).split(0).map((item, i) => `
+                
+                    
+                    
                     <article class="style${Math.floor(Math.random() * (6 - 1 + 1)) + 1}" id = "tile${i}">
                                 <span class="image">
                                     <img src="images/pic${Math.floor(Math.random() * (12 - 1 + 1)) + 1}.jpg" alt="" />
                                 </span>
-                                
+
                                 <a href="#" class="popup" Onclick="vote(${i}); return false;" oncontextmenu="unvote(${i});return false;"
                                 onauxclick="showData(${i}); return false;">
                                 <span class="popuptext" id="myPopup${i}">
@@ -260,6 +290,7 @@
                                     <b>Email:</b> ${jsonObject[i].email} <br>
                                     <b>Pesel:</b> ${jsonObject[i].pesel} <br>
                                     <i>Middle Click again for me to close :)</i>
+                                    <input type="button" id="btn1" Onclick="deleteThisData(${i})" style="width:150" value="Delete" />
                                     </span>
                                     
                                     <h1>${jsonObject[i].name} ${jsonObject[i].surname}</h1>
@@ -268,6 +299,7 @@
                                 </a>
                                 
                     </article>
+                    
             `).join('')}
                            
                             `;
