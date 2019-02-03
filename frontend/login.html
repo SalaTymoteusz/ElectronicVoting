@@ -42,11 +42,12 @@
                 if (this.readyState == 4 && this.status == 200) {
                     check = this.responseText;
                     user = JSON.stringify(check)
+                    window.alert(JSON.parse(user))
                     localStorage.setItem(user._id, user);
                     console.log(user)
                     var reborned_user = JSON.parse(localStorage.getItem(user._id))
                     console.log(JSON.parse(localStorage.getItem(user._id)))
-                    console.log(reborned_user.votes)
+                    console.log(reborned_user)
                     //alert(check);
                     /*
                     if (check == "true") {
@@ -117,7 +118,7 @@
         </div>
 
         <div class="container" style="background-color:#f1f1f1">
-            <button type="button" class="cancelbtn">Cancel</button>
+            <button type="button" class="cancelbtn" onclick="history.back()">Cancel</button>
             <span class="psw">Forgot <a href="#">password?</a></span>
         </div>
     </form>
